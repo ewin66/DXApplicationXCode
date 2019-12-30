@@ -27,12 +27,13 @@ namespace DXApplicationXCode
             CharSet = CharSet.Auto,
             CallingConvention = CallingConvention.StdCall)]
         private static extern int AllocConsole();
+
+        [DllImport("kernel32.dll", SetLastError = true)]
+        internal static extern int FreeConsole();
+
         private const int STD_OUTPUT_HANDLE = -11;
         private const int MY_CODE_PAGE = 437;
-
-
-        [DllImport("kernel32.dll")]
-        public static extern bool FreeConsole();
+        
         [DllImport("user32.dll", EntryPoint = "ShowWindow", SetLastError = true)]
         static extern bool ShowWindow(IntPtr hWnd, uint nCmdShow);
         [DllImport("user32.dll", EntryPoint = "FindWindow", SetLastError = true)]
@@ -62,6 +63,10 @@ namespace DXApplicationXCode
         [STAThread]
         static void Main()
         {
+
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+
             #region 是否开启控制台
             ////if ((args.Length > 0 && args.Contains("-c")))
             {
@@ -73,9 +78,6 @@ namespace DXApplicationXCode
                 Console.WriteLine("控制台已启动。");
             }
             #endregion
-
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
 
             #region 字体名称和大小 从配置文件读取配置信息(FontName,FontSize)
 

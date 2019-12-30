@@ -1,17 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Text;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using DevExpress.XtraEditors;
 using NewLife.Log;
 using XCode.Membership;
 using System.Diagnostics;
 using DevExpress.XtraGrid.Views.Grid.ViewInfo;
+using System.Threading;
+using static DXApplicationXCode.AsyncDemoClass;
 
 namespace DXApplicationXCode
 {
@@ -63,6 +60,8 @@ namespace DXApplicationXCode
 
         private void navBarItem2_LinkClicked(object sender, DevExpress.XtraNavBar.NavBarLinkEventArgs e)
         {
+            System.Diagnostics.Trace.WriteLine("navBarItem2_LinkClicked");
+            System.Diagnostics.Debug.WriteLine("navBarItem2_LinkClicked");
             IList<User> listUser = User.FindAll();
             if (bindingSourceMain.DataSource == null)
             {
@@ -91,14 +90,17 @@ namespace DXApplicationXCode
 
         private void bindingSourceMain_DataSourceChanged(object sender, EventArgs e)
         {
-            this.gridControlMain.DataSource = bindingSourceMain;
-            this.dataNavigatorMain.DataSource = bindingSourceMain;
+            if (bindingSourceMain.DataSource != null)
+            {
+                this.gridControlMain.DataSource = bindingSourceMain;
+                this.dataNavigatorMain.DataSource = bindingSourceMain;
 
-            this.textEditName.DataBindings.Clear();
-            this.textEditName.DataBindings.Add(new System.Windows.Forms.Binding("Text", bindingSourceMain, User.__.Name, true));
+                this.textEditName.DataBindings.Clear();
+                this.textEditName.DataBindings.Add(new System.Windows.Forms.Binding("Text", bindingSourceMain, User.__.Name, true));
 
-            this.textEditPhone.DataBindings.Clear();
-            this.textEditPhone.DataBindings.Add(new System.Windows.Forms.Binding("Text", bindingSourceMain, User.__.Mobile, true));
+                this.textEditPhone.DataBindings.Clear();
+                this.textEditPhone.DataBindings.Add(new System.Windows.Forms.Binding("Text", bindingSourceMain, User.__.Mobile, true));
+            }
         }
 
         private void simpleButtonSave_Click(object sender, EventArgs e)
@@ -207,6 +209,39 @@ namespace DXApplicationXCode
                 newXtraFormUser.ShowDialog();
                 newXtraFormUser.Dispose();
             }
+        }
+
+        private void navBarItemAsyncMethod_LinkClicked(object sender, DevExpress.XtraNavBar.NavBarLinkEventArgs e)
+        {
+            AsyncDemoClass newAsyncDemoClass = new AsyncDemoClass();
+            newAsyncDemoClass.ShowMessageInAsyncDemo += new ShowMessageInAsyncDemoEventHandler(ShowMessageInAsyncDemo);
+            newAsyncDemoClass.ShowMessageInAsyncDemo += new ShowMessageInAsyncDemoEventHandler(ShowMessageInAsyncDemo);
+            newAsyncDemoClass.ShowMessageInAsyncDemo += new ShowMessageInAsyncDemoEventHandler(ShowMessageInAsyncDemo);
+            newAsyncDemoClass.ShowMessageInAsyncDemo += new ShowMessageInAsyncDemoEventHandler(ShowMessageInAsyncDemo);
+            newAsyncDemoClass.ShowMessageInAsyncDemo += new ShowMessageInAsyncDemoEventHandler(ShowMessageInAsyncDemo);
+            var varTask = newAsyncDemoClass.taskStartAsyncDelegate(3000);
+            MessageBox.Show("varTask");
+        }
+
+        public void ShowMessageInAsyncDemo(object sender, String message)
+        {
+            if (this.IsHandleCreated)
+            {
+                new Thread(new ParameterizedThreadStart(delegate (object threadObject)
+                {
+                    String mm = threadObject as String;
+                    IAsyncResult iar = this.BeginInvoke(new MethodInvoker(delegate
+                    {
+                        MessageBox.Show(mm);
+                    }));
+                    this.EndInvoke(iar);
+                })).Start(message);
+            }
+        }
+
+        private void navBarItemDrawImge_LinkClicked(object sender, DevExpress.XtraNavBar.NavBarLinkEventArgs e)
+        {
+
         }
     }
 }

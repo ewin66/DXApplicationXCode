@@ -39,6 +39,30 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RibbonFormMain));
             DevExpress.XtraEditors.ButtonsPanelControl.ButtonImageOptions buttonImageOptions1 = new DevExpress.XtraEditors.ButtonsPanelControl.ButtonImageOptions();
             DevExpress.XtraEditors.ButtonsPanelControl.ButtonImageOptions buttonImageOptions2 = new DevExpress.XtraEditors.ButtonsPanelControl.ButtonImageOptions();
+            DevExpress.Utils.ContextButton contextButton1 = new DevExpress.Utils.ContextButton();
+            DevExpress.Utils.ContextButton contextButton2 = new DevExpress.Utils.ContextButton();
+            DevExpress.Utils.ContextButton contextButton3 = new DevExpress.Utils.ContextButton();
+            DevExpress.Utils.ContextButton contextButton4 = new DevExpress.Utils.ContextButton();
+            DevExpress.XtraBars.Ribbon.GalleryItemGroup galleryItemGroup1 = new DevExpress.XtraBars.Ribbon.GalleryItemGroup();
+            DevExpress.XtraBars.Ribbon.GalleryItem galleryItem1 = new DevExpress.XtraBars.Ribbon.GalleryItem();
+            DevExpress.XtraBars.Ribbon.GalleryItem galleryItem2 = new DevExpress.XtraBars.Ribbon.GalleryItem();
+            DevExpress.XtraBars.Ribbon.GalleryItem galleryItem3 = new DevExpress.XtraBars.Ribbon.GalleryItem();
+            DevExpress.XtraBars.Ribbon.GalleryItem galleryItem4 = new DevExpress.XtraBars.Ribbon.GalleryItem();
+            DevExpress.XtraBars.Ribbon.GalleryItemGroup galleryItemGroup2 = new DevExpress.XtraBars.Ribbon.GalleryItemGroup();
+            DevExpress.XtraBars.Ribbon.GalleryItem galleryItem5 = new DevExpress.XtraBars.Ribbon.GalleryItem();
+            DevExpress.XtraBars.Ribbon.GalleryItem galleryItem6 = new DevExpress.XtraBars.Ribbon.GalleryItem();
+            DevExpress.XtraBars.Ribbon.GalleryItem galleryItem7 = new DevExpress.XtraBars.Ribbon.GalleryItem();
+            DevExpress.XtraBars.Ribbon.GalleryItem galleryItem8 = new DevExpress.XtraBars.Ribbon.GalleryItem();
+            DevExpress.XtraBars.Ribbon.GalleryItemGroup galleryItemGroup3 = new DevExpress.XtraBars.Ribbon.GalleryItemGroup();
+            DevExpress.XtraBars.Ribbon.GalleryItem galleryItem9 = new DevExpress.XtraBars.Ribbon.GalleryItem();
+            DevExpress.XtraBars.Ribbon.GalleryItem galleryItem10 = new DevExpress.XtraBars.Ribbon.GalleryItem();
+            DevExpress.XtraBars.Ribbon.GalleryItem galleryItem11 = new DevExpress.XtraBars.Ribbon.GalleryItem();
+            DevExpress.XtraBars.Ribbon.GalleryItem galleryItem12 = new DevExpress.XtraBars.Ribbon.GalleryItem();
+            DevExpress.XtraBars.Ribbon.GalleryItemGroup galleryItemGroup4 = new DevExpress.XtraBars.Ribbon.GalleryItemGroup();
+            DevExpress.XtraBars.Ribbon.GalleryItem galleryItem13 = new DevExpress.XtraBars.Ribbon.GalleryItem();
+            DevExpress.XtraBars.Ribbon.GalleryItem galleryItem14 = new DevExpress.XtraBars.Ribbon.GalleryItem();
+            DevExpress.XtraBars.Ribbon.GalleryItem galleryItem15 = new DevExpress.XtraBars.Ribbon.GalleryItem();
+            DevExpress.XtraBars.Ribbon.GalleryItem galleryItem16 = new DevExpress.XtraBars.Ribbon.GalleryItem();
             this.cardViewUser = new DevExpress.XtraGrid.Views.Card.CardView();
             this.gridControlMain = new DevExpress.XtraGrid.GridControl();
             this.bindingSourceMain = new System.Windows.Forms.BindingSource(this.components);
@@ -87,7 +111,7 @@
             this.barListItem1 = new DevExpress.XtraBars.BarListItem();
             this.barDockingMenuItem1 = new DevExpress.XtraBars.BarDockingMenuItem();
             this.barWorkspaceMenuItem1 = new DevExpress.XtraBars.BarWorkspaceMenuItem();
-            this.workspaceManager1 = new DevExpress.Utils.WorkspaceManager(this.components);
+            this.workspaceManagerMain = new DevExpress.Utils.WorkspaceManager(this.components);
             this.ribbonGalleryBarItem1 = new DevExpress.XtraBars.RibbonGalleryBarItem();
             this.barButtonGroup1 = new DevExpress.XtraBars.BarButtonGroup();
             this.skinRibbonGalleryBarItem = new DevExpress.XtraBars.SkinRibbonGalleryBarItem();
@@ -120,6 +144,9 @@
             this.tabbedView = new DevExpress.XtraBars.Docking2010.Views.Tabbed.TabbedView(this.components);
             this.officeNavigationBar = new DevExpress.XtraBars.Navigation.OfficeNavigationBar();
             this.navBarControl = new DevExpress.XtraNavBar.NavBarControl();
+            this.navBarGroupProduct = new DevExpress.XtraNavBar.NavBarGroup();
+            this.navBarItemAsyncMethod = new DevExpress.XtraNavBar.NavBarItem();
+            this.navBarItemDrawImge = new DevExpress.XtraNavBar.NavBarItem();
             this.UserNavBarGroup = new DevExpress.XtraNavBar.NavBarGroup();
             this.navBarItemAdd = new DevExpress.XtraNavBar.NavBarItem();
             this.navBarItemRefresh = new DevExpress.XtraNavBar.NavBarItem();
@@ -133,10 +160,9 @@
             this.navBarItem6 = new DevExpress.XtraNavBar.NavBarItem();
             this.navBarItem7 = new DevExpress.XtraNavBar.NavBarItem();
             this.navBarItem8 = new DevExpress.XtraNavBar.NavBarItem();
-            this.navBarGroup1 = new DevExpress.XtraNavBar.NavBarGroup();
-            this.navBarGroup2 = new DevExpress.XtraNavBar.NavBarGroup();
+            this.navBarGroupBill = new DevExpress.XtraNavBar.NavBarGroup();
             this.navigationFrame = new DevExpress.XtraBars.Navigation.NavigationFrame();
-            this.employeesNavigationPage = new DevExpress.XtraBars.Navigation.NavigationPage();
+            this.userNavigationPage = new DevExpress.XtraBars.Navigation.NavigationPage();
             this.layoutControl3 = new DevExpress.XtraLayout.LayoutControl();
             this.dataNavigatorMain = new DevExpress.XtraEditors.DataNavigator();
             this.gridSplitContainer1 = new DevExpress.XtraGrid.GridSplitContainer();
@@ -192,6 +218,10 @@
             this.layoutControlItemPhone = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItemSave = new DevExpress.XtraLayout.LayoutControlItem();
             this.sidePanel1 = new DevExpress.XtraEditors.SidePanel();
+            this.navigationPageProduct = new DevExpress.XtraBars.Navigation.NavigationPage();
+            this.navigationPageBill = new DevExpress.XtraBars.Navigation.NavigationPage();
+            this.galleryControlImage = new DevExpress.XtraBars.Ribbon.GalleryControl();
+            this.galleryControlClient1 = new DevExpress.XtraBars.Ribbon.GalleryControlClient();
             ((System.ComponentModel.ISupportInitialize)(this.cardViewUser)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridControlMain)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceMain)).BeginInit();
@@ -209,7 +239,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.navBarControl)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.navigationFrame)).BeginInit();
             this.navigationFrame.SuspendLayout();
-            this.employeesNavigationPage.SuspendLayout();
+            this.userNavigationPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl3)).BeginInit();
             this.layoutControl3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridSplitContainer1)).BeginInit();
@@ -264,6 +294,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItemPhone)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItemSave)).BeginInit();
             this.sidePanel1.SuspendLayout();
+            this.navigationPageProduct.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.galleryControlImage)).BeginInit();
+            this.galleryControlImage.SuspendLayout();
             this.SuspendLayout();
             // 
             // cardViewUser
@@ -741,12 +774,12 @@
             this.barWorkspaceMenuItem1.Caption = "barWorkspaceMenuItem1";
             this.barWorkspaceMenuItem1.Id = 52;
             this.barWorkspaceMenuItem1.Name = "barWorkspaceMenuItem1";
-            this.barWorkspaceMenuItem1.WorkspaceManager = this.workspaceManager1;
+            this.barWorkspaceMenuItem1.WorkspaceManager = this.workspaceManagerMain;
             // 
-            // workspaceManager1
+            // workspaceManagerMain
             // 
-            this.workspaceManager1.TargetControl = this;
-            this.workspaceManager1.TransitionType = pushTransition1;
+            this.workspaceManagerMain.TargetControl = this;
+            this.workspaceManagerMain.TransitionType = pushTransition1;
             // 
             // ribbonGalleryBarItem1
             // 
@@ -951,13 +984,13 @@
             // 
             // navBarControl
             // 
-            this.navBarControl.ActiveGroup = this.UserNavBarGroup;
+            this.navBarControl.ActiveGroup = this.navBarGroupProduct;
             this.navBarControl.Dock = System.Windows.Forms.DockStyle.Left;
             this.navBarControl.Groups.AddRange(new DevExpress.XtraNavBar.NavBarGroup[] {
             this.UserNavBarGroup,
             this.customersNavBarGroup,
-            this.navBarGroup1,
-            this.navBarGroup2});
+            this.navBarGroupProduct,
+            this.navBarGroupBill});
             this.navBarControl.Items.AddRange(new DevExpress.XtraNavBar.NavBarItem[] {
             this.navBarItemAdd,
             this.navBarItemRefresh,
@@ -969,7 +1002,9 @@
             this.navBarItemGridViewUser,
             this.navBarItemLayoutViewUser,
             this.navBarItemTileViewUser,
-            this.navBarItemCardViewUser});
+            this.navBarItemCardViewUser,
+            this.navBarItemAsyncMethod,
+            this.navBarItemDrawImge});
             this.navBarControl.Location = new System.Drawing.Point(0, 147);
             this.navBarControl.Name = "navBarControl";
             this.navBarControl.OptionsNavPane.ExpandedWidth = 151;
@@ -979,10 +1014,30 @@
             this.navBarControl.Text = "navBarControl";
             this.navBarControl.ActiveGroupChanged += new DevExpress.XtraNavBar.NavBarGroupEventHandler(this.navBarControl_ActiveGroupChanged);
             // 
+            // navBarGroupProduct
+            // 
+            this.navBarGroupProduct.Caption = "产品";
+            this.navBarGroupProduct.Expanded = true;
+            this.navBarGroupProduct.ItemLinks.AddRange(new DevExpress.XtraNavBar.NavBarItemLink[] {
+            new DevExpress.XtraNavBar.NavBarItemLink(this.navBarItemAsyncMethod),
+            new DevExpress.XtraNavBar.NavBarItemLink(this.navBarItemDrawImge)});
+            this.navBarGroupProduct.Name = "navBarGroupProduct";
+            // 
+            // navBarItemAsyncMethod
+            // 
+            this.navBarItemAsyncMethod.Caption = "异步例子代码";
+            this.navBarItemAsyncMethod.Name = "navBarItemAsyncMethod";
+            this.navBarItemAsyncMethod.LinkClicked += new DevExpress.XtraNavBar.NavBarLinkEventHandler(this.navBarItemAsyncMethod_LinkClicked);
+            // 
+            // navBarItemDrawImge
+            // 
+            this.navBarItemDrawImge.Caption = "实时画图";
+            this.navBarItemDrawImge.Name = "navBarItemDrawImge";
+            this.navBarItemDrawImge.LinkClicked += new DevExpress.XtraNavBar.NavBarLinkEventHandler(this.navBarItemDrawImge_LinkClicked);
+            // 
             // UserNavBarGroup
             // 
             this.UserNavBarGroup.Caption = "用户";
-            this.UserNavBarGroup.Expanded = true;
             this.UserNavBarGroup.ItemLinks.AddRange(new DevExpress.XtraNavBar.NavBarItemLink[] {
             new DevExpress.XtraNavBar.NavBarItemLink(this.navBarItemAdd),
             new DevExpress.XtraNavBar.NavBarItemLink(this.navBarItemRefresh),
@@ -1065,42 +1120,41 @@
             this.navBarItem8.Caption = "navBarItem8";
             this.navBarItem8.Name = "navBarItem8";
             // 
-            // navBarGroup1
+            // navBarGroupBill
             // 
-            this.navBarGroup1.Caption = "navBarGroup1";
-            this.navBarGroup1.Name = "navBarGroup1";
-            // 
-            // navBarGroup2
-            // 
-            this.navBarGroup2.Caption = "navBarGroup2";
-            this.navBarGroup2.Name = "navBarGroup2";
+            this.navBarGroupBill.Caption = "订单";
+            this.navBarGroupBill.Name = "navBarGroupBill";
             // 
             // navigationFrame
             // 
             this.navigationFrame.AllowTransitionAnimation = DevExpress.Utils.DefaultBoolean.False;
             this.navigationFrame.Appearance.BackColor = System.Drawing.Color.White;
             this.navigationFrame.Appearance.Options.UseBackColor = true;
-            this.navigationFrame.Controls.Add(this.employeesNavigationPage);
+            this.navigationFrame.Controls.Add(this.userNavigationPage);
             this.navigationFrame.Controls.Add(this.customersNavigationPage);
+            this.navigationFrame.Controls.Add(this.navigationPageProduct);
+            this.navigationFrame.Controls.Add(this.navigationPageBill);
             this.navigationFrame.Dock = System.Windows.Forms.DockStyle.Fill;
             this.navigationFrame.Location = new System.Drawing.Point(151, 147);
             this.navigationFrame.Name = "navigationFrame";
             this.navigationFrame.Pages.AddRange(new DevExpress.XtraBars.Navigation.NavigationPageBase[] {
-            this.employeesNavigationPage,
-            this.customersNavigationPage});
+            this.userNavigationPage,
+            this.customersNavigationPage,
+            this.navigationPageProduct,
+            this.navigationPageBill});
             this.navigationFrame.RibbonAndBarsMergeStyle = DevExpress.XtraBars.Docking2010.Views.RibbonAndBarsMergeStyle.Always;
-            this.navigationFrame.SelectedPage = this.employeesNavigationPage;
+            this.navigationFrame.SelectedPage = this.userNavigationPage;
             this.navigationFrame.Size = new System.Drawing.Size(673, 420);
             this.navigationFrame.TabIndex = 0;
             this.navigationFrame.Text = "navigationFrame";
             this.navigationFrame.TransitionType = DevExpress.Utils.Animation.Transitions.Push;
             // 
-            // employeesNavigationPage
+            // userNavigationPage
             // 
-            this.employeesNavigationPage.Controls.Add(this.layoutControl3);
-            this.employeesNavigationPage.Controls.Add(this.employeesLabelControl);
-            this.employeesNavigationPage.Name = "employeesNavigationPage";
-            this.employeesNavigationPage.Size = new System.Drawing.Size(673, 420);
+            this.userNavigationPage.Controls.Add(this.layoutControl3);
+            this.userNavigationPage.Controls.Add(this.employeesLabelControl);
+            this.userNavigationPage.Name = "userNavigationPage";
+            this.userNavigationPage.Size = new System.Drawing.Size(673, 420);
             // 
             // layoutControl3
             // 
@@ -1697,6 +1751,106 @@
             this.sidePanel1.TabIndex = 5;
             this.sidePanel1.Text = "sidePanel1";
             // 
+            // navigationPageProduct
+            // 
+            this.navigationPageProduct.Controls.Add(this.galleryControlImage);
+            this.navigationPageProduct.Name = "navigationPageProduct";
+            this.navigationPageProduct.Size = new System.Drawing.Size(673, 420);
+            // 
+            // navigationPageBill
+            // 
+            this.navigationPageBill.Name = "navigationPageBill";
+            this.navigationPageBill.Size = new System.Drawing.Size(673, 420);
+            // 
+            // galleryControlImage
+            // 
+            this.galleryControlImage.Controls.Add(this.galleryControlClient1);
+            this.galleryControlImage.Dock = System.Windows.Forms.DockStyle.Fill;
+            // 
+            // 
+            // 
+            contextButton1.Caption = "contextButton1";
+            contextButton1.Id = new System.Guid("f4d0cb2b-5cee-42e2-87ce-cabf167e82c9");
+            contextButton1.Name = "contextButton1";
+            contextButton1.Visibility = DevExpress.Utils.ContextItemVisibility.Visible;
+            contextButton2.Caption = "contextButton2";
+            contextButton2.Id = new System.Guid("3d746147-a0ac-4169-bfcb-6bcbc3f22bd1");
+            contextButton2.Name = "contextButton2";
+            contextButton2.Visibility = DevExpress.Utils.ContextItemVisibility.Visible;
+            contextButton3.Caption = "contextButton3";
+            contextButton3.Id = new System.Guid("afbc8f4b-86cf-4cff-a5ae-4ac6e96d40ed");
+            contextButton3.Name = "contextButton3";
+            contextButton3.Visibility = DevExpress.Utils.ContextItemVisibility.Visible;
+            contextButton4.Caption = "contextButton4";
+            contextButton4.Id = new System.Guid("ad7a9a88-8128-489e-8662-4eeb4726642f");
+            contextButton4.Name = "contextButton4";
+            contextButton4.Visibility = DevExpress.Utils.ContextItemVisibility.Visible;
+            this.galleryControlImage.Gallery.ContextButtons.Add(contextButton1);
+            this.galleryControlImage.Gallery.ContextButtons.Add(contextButton2);
+            this.galleryControlImage.Gallery.ContextButtons.Add(contextButton3);
+            this.galleryControlImage.Gallery.ContextButtons.Add(contextButton4);
+            galleryItemGroup1.Caption = "Group1";
+            galleryItem1.Caption = "Item11";
+            galleryItem1.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("resource.Image")));
+            galleryItem2.Caption = "Item12";
+            galleryItem3.Caption = "Item13";
+            galleryItem4.Caption = "Item14";
+            galleryItemGroup1.Items.AddRange(new DevExpress.XtraBars.Ribbon.GalleryItem[] {
+            galleryItem1,
+            galleryItem2,
+            galleryItem3,
+            galleryItem4});
+            galleryItemGroup2.Caption = "Group2";
+            galleryItem5.Caption = "Item15";
+            galleryItem5.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("resource.Image1")));
+            galleryItem6.Caption = "Item16";
+            galleryItem7.Caption = "Item17";
+            galleryItem8.Caption = "Item18";
+            galleryItemGroup2.Items.AddRange(new DevExpress.XtraBars.Ribbon.GalleryItem[] {
+            galleryItem5,
+            galleryItem6,
+            galleryItem7,
+            galleryItem8});
+            galleryItemGroup3.Caption = "Group3";
+            galleryItem9.Caption = "Item7";
+            galleryItem9.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("resource.Image2")));
+            galleryItem10.Caption = "Item8";
+            galleryItem11.Caption = "Item9";
+            galleryItem12.Caption = "Item10";
+            galleryItemGroup3.Items.AddRange(new DevExpress.XtraBars.Ribbon.GalleryItem[] {
+            galleryItem9,
+            galleryItem10,
+            galleryItem11,
+            galleryItem12});
+            galleryItemGroup4.Caption = "Group4";
+            galleryItem13.Caption = "Item1";
+            galleryItem13.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("resource.Image3")));
+            galleryItem14.Caption = "Item2";
+            galleryItem15.Caption = "Item3";
+            galleryItem16.Caption = "Item4";
+            galleryItemGroup4.Items.AddRange(new DevExpress.XtraBars.Ribbon.GalleryItem[] {
+            galleryItem13,
+            galleryItem14,
+            galleryItem15,
+            galleryItem16});
+            this.galleryControlImage.Gallery.Groups.AddRange(new DevExpress.XtraBars.Ribbon.GalleryItemGroup[] {
+            galleryItemGroup1,
+            galleryItemGroup2,
+            galleryItemGroup3,
+            galleryItemGroup4});
+            this.galleryControlImage.Gallery.ShowItemText = true;
+            this.galleryControlImage.Location = new System.Drawing.Point(0, 0);
+            this.galleryControlImage.Name = "galleryControlImage";
+            this.galleryControlImage.Size = new System.Drawing.Size(673, 420);
+            this.galleryControlImage.TabIndex = 0;
+            this.galleryControlImage.Text = "galleryControl1";
+            // 
+            // galleryControlClient1
+            // 
+            this.galleryControlClient1.GalleryControl = this.galleryControlImage;
+            this.galleryControlClient1.Location = new System.Drawing.Point(2, 24);
+            this.galleryControlClient1.Size = new System.Drawing.Size(652, 394);
+            // 
             // RibbonFormMain
             // 
             this.AllowFormGlass = DevExpress.Utils.DefaultBoolean.True;
@@ -1730,7 +1884,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.navBarControl)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.navigationFrame)).EndInit();
             this.navigationFrame.ResumeLayout(false);
-            this.employeesNavigationPage.ResumeLayout(false);
+            this.userNavigationPage.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl3)).EndInit();
             this.layoutControl3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gridSplitContainer1)).EndInit();
@@ -1785,6 +1939,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItemPhone)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItemSave)).EndInit();
             this.sidePanel1.ResumeLayout(false);
+            this.navigationPageProduct.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.galleryControlImage)).EndInit();
+            this.galleryControlImage.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1804,7 +1961,7 @@
         private DevExpress.XtraNavBar.NavBarControl navBarControl;
         private DevExpress.XtraNavBar.NavBarGroup UserNavBarGroup;
         private DevExpress.XtraNavBar.NavBarGroup customersNavBarGroup;
-        private DevExpress.XtraBars.Navigation.NavigationPage employeesNavigationPage;
+        private DevExpress.XtraBars.Navigation.NavigationPage userNavigationPage;
         private DevExpress.XtraEditors.LabelControl employeesLabelControl;
         private DevExpress.XtraBars.Navigation.NavigationPage customersNavigationPage;
         private DevExpress.XtraEditors.LabelControl customersLabelControl;
@@ -1819,7 +1976,6 @@
         private DevExpress.XtraNavBar.NavBarItem navBarItem6;
         private DevExpress.XtraNavBar.NavBarItem navBarItem7;
         private DevExpress.XtraNavBar.NavBarItem navBarItem8;
-        private UCDocumentManager ucDocumentManager2;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem2;
         private DevExpress.XtraBars.BarButtonItem barButtonItem1;
         private DevExpress.XtraBars.BarCheckItem barCheckItem1;
@@ -1828,7 +1984,7 @@
         private DevExpress.XtraBars.BarListItem barListItem1;
         private DevExpress.XtraBars.BarDockingMenuItem barDockingMenuItem1;
         private DevExpress.XtraBars.BarWorkspaceMenuItem barWorkspaceMenuItem1;
-        private DevExpress.Utils.WorkspaceManager workspaceManager1;
+        private DevExpress.Utils.WorkspaceManager workspaceManagerMain;
         private DevExpress.XtraBars.RibbonGalleryBarItem ribbonGalleryBarItem1;
         private DevExpress.XtraBars.BarButtonGroup barButtonGroup1;
         private DevExpress.XtraBars.Ribbon.RibbonPageCategory ribbonPageCategory1;
@@ -1844,8 +2000,8 @@
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup2;
         private DevExpress.XtraBars.BarButtonItem barButtonItem5;
         private DevExpress.XtraBars.BarButtonItem barButtonItem6;
-        private DevExpress.XtraNavBar.NavBarGroup navBarGroup1;
-        private DevExpress.XtraNavBar.NavBarGroup navBarGroup2;
+        private DevExpress.XtraNavBar.NavBarGroup navBarGroupProduct;
+        private DevExpress.XtraNavBar.NavBarGroup navBarGroupBill;
         private DevExpress.XtraGrid.GridControl gridControlMain;
         private DevExpress.XtraGrid.Views.Grid.GridView gridViewUser;
         private DevExpress.XtraEditors.Repository.RepositoryItemTextEdit repositoryItemTextEdit1;
@@ -1945,5 +2101,11 @@
         private DevExpress.XtraGrid.Columns.GridColumn colUpdateIP;
         private DevExpress.XtraGrid.Columns.GridColumn colUpdateTime;
         private DevExpress.XtraGrid.Columns.GridColumn colRemark;
+        private DevExpress.XtraNavBar.NavBarItem navBarItemAsyncMethod;
+        private DevExpress.XtraNavBar.NavBarItem navBarItemDrawImge;
+        private DevExpress.XtraBars.Navigation.NavigationPage navigationPageProduct;
+        private DevExpress.XtraBars.Navigation.NavigationPage navigationPageBill;
+        private DevExpress.XtraBars.Ribbon.GalleryControl galleryControlImage;
+        private DevExpress.XtraBars.Ribbon.GalleryControlClient galleryControlClient1;
     }
 }
