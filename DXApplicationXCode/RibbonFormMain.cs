@@ -214,16 +214,32 @@ namespace DXApplicationXCode
         private void navBarItemAsyncMethod_LinkClicked(object sender, DevExpress.XtraNavBar.NavBarLinkEventArgs e)
         {
             AsyncDemoClass newAsyncDemoClass = new AsyncDemoClass();
-            newAsyncDemoClass.ShowMessageInAsyncDemo += new ShowMessageInAsyncDemoEventHandler(ShowMessageInAsyncDemo);
-            newAsyncDemoClass.ShowMessageInAsyncDemo += new ShowMessageInAsyncDemoEventHandler(ShowMessageInAsyncDemo);
-            newAsyncDemoClass.ShowMessageInAsyncDemo += new ShowMessageInAsyncDemoEventHandler(ShowMessageInAsyncDemo);
-            newAsyncDemoClass.ShowMessageInAsyncDemo += new ShowMessageInAsyncDemoEventHandler(ShowMessageInAsyncDemo);
-            newAsyncDemoClass.ShowMessageInAsyncDemo += new ShowMessageInAsyncDemoEventHandler(ShowMessageInAsyncDemo);
+            newAsyncDemoClass.DoSomethingInAsyncTaskDemo += new DoSomethingInAsyncTaskDemoEventHandler(DoSomethingInAsyncTaskDemo);
+            newAsyncDemoClass.ShowMessageInAsyncBackcallDemo += new ShowMessageInAsyncBackcallDemoEventHandler(ShowMessageInAsyncBackcallDemo);
+            //newAsyncDemoClass.ShowMessageInAsyncDemo += new ShowMessageInAsyncDemoEventHandler(ShowMessageInAsyncDemo);
+            //newAsyncDemoClass.ShowMessageInAsyncDemo += new ShowMessageInAsyncDemoEventHandler(ShowMessageInAsyncDemo);
+            //newAsyncDemoClass.ShowMessageInAsyncDemo += new ShowMessageInAsyncDemoEventHandler(ShowMessageInAsyncDemo);
+            //newAsyncDemoClass.ShowMessageInAsyncDemo += new ShowMessageInAsyncDemoEventHandler(ShowMessageInAsyncDemo);
             var varTask = newAsyncDemoClass.taskStartAsyncDelegate(3000);
             MessageBox.Show("varTask");
         }
 
-        public void ShowMessageInAsyncDemo(object sender, String message)
+        public void DoSomethingInAsyncTaskDemo(object sender, object message)
+        {
+            if (this.IsHandleCreated)
+            {
+                new Thread(new ParameterizedThreadStart(delegate (object threadObject)
+                {
+                    String mm = threadObject as String;
+                    IAsyncResult iar = this.BeginInvoke(new MethodInvoker(delegate
+                    {
+                        MessageBox.Show(mm);
+                    }));
+                    this.EndInvoke(iar);
+                })).Start(message);
+            }
+        }
+        public void ShowMessageInAsyncBackcallDemo(object sender, object message)
         {
             if (this.IsHandleCreated)
             {

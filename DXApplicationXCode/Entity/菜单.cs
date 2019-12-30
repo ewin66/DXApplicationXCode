@@ -143,16 +143,16 @@ namespace XCode.Membership
             {
                 switch (name)
                 {
-                    case __.ID : _ID = value.ToInt(); break;
+                    case __.ID : _ID = Convert.ToInt32(value); break;
                     case __.Name : _Name = Convert.ToString(value); break;
                     case __.DisplayName : _DisplayName = Convert.ToString(value); break;
                     case __.FullName : _FullName = Convert.ToString(value); break;
-                    case __.ParentID : _ParentID = value.ToInt(); break;
+                    case __.ParentID : _ParentID = Convert.ToInt32(value); break;
                     case __.Url : _Url = Convert.ToString(value); break;
-                    case __.Sort : _Sort = value.ToInt(); break;
+                    case __.Sort : _Sort = Convert.ToInt32(value); break;
                     case __.Icon : _Icon = Convert.ToString(value); break;
-                    case __.Visible : _Visible = value.ToBoolean(); break;
-                    case __.Necessary : _Necessary = value.ToBoolean(); break;
+                    case __.Visible : _Visible = Convert.ToBoolean(value); break;
+                    case __.Necessary : _Necessary = Convert.ToBoolean(value); break;
                     case __.Permission : _Permission = Convert.ToString(value); break;
                     case __.Remark : _Remark = Convert.ToString(value); break;
                     default: base[name] = value; break;
