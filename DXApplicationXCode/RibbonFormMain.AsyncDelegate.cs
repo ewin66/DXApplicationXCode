@@ -18,14 +18,14 @@ namespace DXApplicationXCode
         //public delegate void CancelEventHandler(object sender, object message);
         //public delegate void CompletedEventHandler(object sender, object message);
         public delegate void DoSomethingInAsyncTaskDemoEventHandler(object sender, object message);
-        public delegate void ShowMessageInAsyncBackcallDemoEventHandler(object sender, object message);
+        public delegate void ShowMessageInAsyncCallbackDemoEventHandler(object sender, object message);
 
         //public event BeginEventHandler BeginInAsyncDemoEventHandler;
         //public event ProgressChangedEventHandler ProgressChangedInAsyncDemoEventHandler;
         //public event CancelEventHandler CancelInAsyncDemoEventHandler;
         //public event CompletedEventHandler CompletedInAsyncDemoEventHandler;
         public event DoSomethingInAsyncTaskDemoEventHandler DoSomethingInAsyncTaskDemo;
-        public event ShowMessageInAsyncBackcallDemoEventHandler ShowMessageInAsyncBackcallDemo;
+        public event ShowMessageInAsyncCallbackDemoEventHandler ShowMessageInAsyncCallbackDemo;
 
         #region 异步Demo代码
         ////////private void navBarItemAsyncMethod_LinkClicked(object sender, DevExpress.XtraNavBar.NavBarLinkEventArgs e)
@@ -98,10 +98,10 @@ namespace DXApplicationXCode
                 returnObject = o;
             }
         }
-        
-        //AsyncCallback asyncCallback;                    //实例化回调
-        //AsyncObjectStateClass asyncObjectState;         //实例化传入参数
-        //AsyncMethodReturnObject asyncMethodReturnObject;//实例化返回结果
+
+        //AsyncCallback asyncCallback;                    //实例化回调 全局变量
+        //AsyncObjectStateClass asyncObjectState;         //实例化传入参数 全局变量
+        //AsyncMethodReturnObject asyncMethodReturnObject;//实例化返回结果 全局变量
 
         /// <summary>
         /// 申明供异步委托调用的任务执行函数
@@ -123,14 +123,19 @@ namespace DXApplicationXCode
 
                 }
             });
-            return new AsyncMethodReturnObject("AsyncMethodReturnObject Return String");
+            return new AsyncMethodReturnObject((sleepMS - 1000).ToString());
         }
         /// <summary>
         /// 申明异步委托，返回类型与任务执行函数一致
         /// </summary>
         public delegate AsyncMethodReturnObject asyncDelegate(AsyncMethodParameterObject sleepObject);
-        asyncDelegate asyncDelegateTask;
-        private void backAsyncDelegate(IAsyncResult iAsyncResult)
+        //////asyncDelegate asyncDelegateTask;   全局变量
+
+        /// <summary>
+        /// 申明供异步委托调用的任务回调函数，即根据任务完成情况做出响应
+        /// </summary>
+        /// <param name="iAsyncResult"></param>
+        private void callBackAsyncDelegate(IAsyncResult iAsyncResult)
         {
             if (true)
             {
@@ -145,12 +150,12 @@ namespace DXApplicationXCode
 
                 asyncDelegate caller = (asyncDelegate)result.AsyncDelegate;                               //任务执行函数
 
-                AsyncMethodReturnObject asyncMethodReturnObject = asyncDelegateTask.EndInvoke(iAsyncResult); //通过EndInvoke获取异步结果
+                AsyncMethodReturnObject asyncMethodReturnObject = caller.EndInvoke(iAsyncResult);         //通过EndInvoke获取异步结果，注意每个asyncDelegate的EndInvoke只能使用一次。
 
-                if (ShowMessageInAsyncBackcallDemo != null)
+                if (ShowMessageInAsyncCallbackDemo != null)
                 {
-                    ShowMessageInAsyncBackcallDemo(this, asyncObjectState.message);
-                    ShowMessageInAsyncBackcallDemo(this, asyncMethodReturnObject.returnObject.ToString());
+                    ShowMessageInAsyncCallbackDemo(this, asyncObjectState.message);
+                    ShowMessageInAsyncCallbackDemo(this, (asyncMethodReturnObject).returnObject.ToString());
                 }
                 else
                 {
@@ -169,13 +174,13 @@ namespace DXApplicationXCode
                 await Task.Run(() =>
                 {
                     AsyncMethodParameterObject asyncMethodParameterObject = new AsyncMethodParameterObject(sleepMS);
-                    asyncDelegateTask = new asyncDelegate(asyncMethodTask);
-                    AsyncCallback asyncCallback = new AsyncCallback(backAsyncDelegate);
+                    asyncDelegate asyncDelegateTask = new asyncDelegate(asyncMethodTask);
+                    AsyncCallback asyncCallback = new AsyncCallback(callBackAsyncDelegate);
                     AsyncObjectStateClass asyncObjectState = new AsyncObjectStateClass(sleepMS);//实例化类，该对象可以传入回调函数中
                     IAsyncResult iar = (AsyncResult)asyncDelegateTask.BeginInvoke(asyncMethodParameterObject, asyncCallback, asyncObjectState);//异步执行Method，界面不会假死，后执行回调函数，弹出提示框
                 });
             }
-            else
+            else   //lambda形式
             {
                 await Task.Run(() =>
                 {

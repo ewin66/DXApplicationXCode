@@ -215,7 +215,7 @@ namespace DXApplicationXCode
         {
             AsyncDemoClass newAsyncDemoClass = new AsyncDemoClass();
             newAsyncDemoClass.DoSomethingInAsyncTaskDemo += new DoSomethingInAsyncTaskDemoEventHandler(DoSomethingInAsyncTaskDemo);
-            newAsyncDemoClass.ShowMessageInAsyncBackcallDemo += new ShowMessageInAsyncBackcallDemoEventHandler(ShowMessageInAsyncBackcallDemo);
+            newAsyncDemoClass.ShowMessageInAsyncCallbackDemo += new ShowMessageInAsyncCallbackDemoEventHandler(ShowMessageInAsyncCallbackDemo);
             //newAsyncDemoClass.ShowMessageInAsyncDemo += new ShowMessageInAsyncDemoEventHandler(ShowMessageInAsyncDemo);
             //newAsyncDemoClass.ShowMessageInAsyncDemo += new ShowMessageInAsyncDemoEventHandler(ShowMessageInAsyncDemo);
             //newAsyncDemoClass.ShowMessageInAsyncDemo += new ShowMessageInAsyncDemoEventHandler(ShowMessageInAsyncDemo);
@@ -230,25 +230,25 @@ namespace DXApplicationXCode
             {
                 new Thread(new ParameterizedThreadStart(delegate (object threadObject)
                 {
-                    String mm = threadObject as String;
+                    String messageString = threadObject as String;
                     IAsyncResult iar = this.BeginInvoke(new MethodInvoker(delegate
                     {
-                        MessageBox.Show(mm);
+                        MessageBox.Show(messageString);
                     }));
                     this.EndInvoke(iar);
                 })).Start(message);
             }
         }
-        public void ShowMessageInAsyncBackcallDemo(object sender, object message)
+        public void ShowMessageInAsyncCallbackDemo(object sender, object message)
         {
             if (this.IsHandleCreated)
             {
                 new Thread(new ParameterizedThreadStart(delegate (object threadObject)
                 {
-                    String mm = threadObject as String;
+                    String messageString = threadObject as String;
                     IAsyncResult iar = this.BeginInvoke(new MethodInvoker(delegate
                     {
-                        MessageBox.Show(mm);
+                        MessageBox.Show(messageString);
                     }));
                     this.EndInvoke(iar);
                 })).Start(message);

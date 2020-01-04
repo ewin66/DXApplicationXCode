@@ -5,7 +5,7 @@
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{1E90D03F-8EBA-4048-8743-8ADF1EEDCC13}</ProjectGuid>
+    <ProjectGuid>{C1A4108A-AFE0-4454-B2C3-014EBD744CC8}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>DXApplicationXCode</RootNamespace>
