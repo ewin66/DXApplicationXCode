@@ -55,6 +55,15 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
+  <PropertyGroup>
+    <TargetZone>LocalIntranet</TargetZone>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>false</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Accessibility" />
     <Reference Include="DevExpress.BonusSkins.v19.1" />
@@ -110,6 +119,28 @@
     <Compile Include="Entity\角色.cs" />
     <Compile Include="Entity\访问统计.Biz.cs" />
     <Compile Include="Entity\访问统计.cs" />
+    <Compile Include="GACManagerApiProjectFolder\AssemblyCache.cs" />
+    <Compile Include="GACManagerApiProjectFolder\AssemblyCacheEnumerator.cs" />
+    <Compile Include="GACManagerApiProjectFolder\AssemblyDescription.cs" />
+    <Compile Include="GACManagerApiProjectFolder\AssemblyFusionProperties.cs" />
+    <Compile Include="GACManagerApiProjectFolder\AssemblyReflectionProperties.cs" />
+    <Compile Include="GACManagerApiProjectFolder\Fusion\ASM_CACHE_FLAGS.cs" />
+    <Compile Include="GACManagerApiProjectFolder\Fusion\ASM_DISPLAY_FLAGS.cs" />
+    <Compile Include="GACManagerApiProjectFolder\Fusion\ASM_NAME.cs" />
+    <Compile Include="GACManagerApiProjectFolder\Fusion\AssemblyCommitFlags.cs" />
+    <Compile Include="GACManagerApiProjectFolder\Fusion\ASSEMBLY_INFO.cs" />
+    <Compile Include="GACManagerApiProjectFolder\Fusion\CREATE_ASM_NAME_OBJ_FLAGS.cs" />
+    <Compile Include="GACManagerApiProjectFolder\Fusion\FusionImports.cs" />
+    <Compile Include="GACManagerApiProjectFolder\Fusion\FUSION_INSTALL_REFERENCE.cs" />
+    <Compile Include="GACManagerApiProjectFolder\Fusion\IAssemblyCache.cs" />
+    <Compile Include="GACManagerApiProjectFolder\Fusion\IASSEMBLYCACHE_UNINSTALL_DISPOSITION.cs" />
+    <Compile Include="GACManagerApiProjectFolder\Fusion\IAssemblyEnum.cs" />
+    <Compile Include="GACManagerApiProjectFolder\Fusion\IAssemblyName.cs" />
+    <Compile Include="GACManagerApiProjectFolder\Fusion\IInstallReferenceEnum.cs" />
+    <Compile Include="GACManagerApiProjectFolder\Fusion\IInstallReferenceItem.cs" />
+    <Compile Include="GACManagerApiProjectFolder\GacUtil.cs" />
+    <Compile Include="GACManagerApiProjectFolder\InstallReferenceEnumerator.cs" />
+    <Compile Include="GACManagerApiProjectFolder\InstallReferenceGuid.cs" />
     <Compile Include="RibbonFormMain.AsyncDelegate.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -162,6 +193,7 @@
     <None Include="Entity\Config\Core.config" />
     <None Include="Entity\Config\XCode.config" />
     <None Include="packages.config" />
+    <None Include="Properties\app.manifest" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -185,15 +217,19 @@
       <LastGenOutput>Build.log</LastGenOutput>
     </Content>
     <Content Include="Entity\Model.xml" />
+    <EmbeddedResource Include="Resources\DXApplication\Path\NewLife.Core.dll" />
+    <EmbeddedResource Include="Resources\DXApplication\Path\XCode.dll" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\Source\Repos\X_NET40\NewLife.Core\NewLife.Core.csproj">
       <Project>{5813c22e-eeb3-4dee-a45c-bb218041193a}</Project>
       <Name>NewLife.Core</Name>
+      <Private>True</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Source\Repos\X_NET40\XCode\XCode.csproj">
       <Project>{b49aba5a-c5da-45f4-87f1-b435ec51d710}</Project>
       <Name>XCode</Name>
+      <Private>True</Private>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

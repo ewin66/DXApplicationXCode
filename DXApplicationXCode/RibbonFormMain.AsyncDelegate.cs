@@ -19,6 +19,7 @@ namespace DXApplicationXCode
         //public delegate void CompletedEventHandler(object sender, object message);
         public delegate void DoSomethingInAsyncTaskDemoEventHandler(object sender, object message);
         public delegate void ShowMessageInAsyncCallbackDemoEventHandler(object sender, object message);
+        public delegate AsyncDemoClass WithAsyncDemoClassAsyncCallbackDemoEventHandler(object sender, object message);
 
         //public event BeginEventHandler BeginInAsyncDemoEventHandler;
         //public event ProgressChangedEventHandler ProgressChangedInAsyncDemoEventHandler;
