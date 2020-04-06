@@ -28,7 +28,14 @@ namespace DXApplicationXCode
 
         void navBarControl_ActiveGroupChanged(object sender, DevExpress.XtraNavBar.NavBarGroupEventArgs e)
         {
-            navigationFrame.SelectedPageIndex = navBarControl.Groups.IndexOf(e.Group);
+            if (e.Group != null)
+            {
+                navigationFrame.SelectedPageIndex = navBarControl.Groups.IndexOf(e.Group);
+            }
+            else
+            {
+
+            }
         }
         void barButtonNavigation_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
@@ -63,19 +70,22 @@ namespace DXApplicationXCode
             System.Diagnostics.Trace.WriteLine("navBarItem2_LinkClicked");
             System.Diagnostics.Debug.WriteLine("navBarItem2_LinkClicked");
             IList<User> listUser = User.FindAll();
-            if (bindingSourceMain.DataSource == null)
+            if (listUser.Count > 0)
             {
-                bindingSourceMain.DataSource = new BindingSource(listUser, null);
-            }
-            else
-            {
-                bindingSourceMain.Clear();
-                foreach (var eachvar in listUser)
+                if (bindingSourceMain.DataSource == null)
                 {
-                    bindingSourceMain.Add(eachvar);
+                    bindingSourceMain.DataSource = new BindingSource(listUser, null);
                 }
-            }
-        }
+                else
+                {
+                    bindingSourceMain.Clear();
+                    foreach (var eachvar in listUser)
+                    {
+                        bindingSourceMain.Add(eachvar);
+                    }
+                }
+
+            }        }
 
         private void bindingSourceMain_BindingComplete(object sender, BindingCompleteEventArgs e)
         {
