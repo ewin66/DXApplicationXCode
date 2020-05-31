@@ -45,47 +45,57 @@ namespace DXApplicationXCode
 
         private void navBarItem1_LinkClicked(object sender, DevExpress.XtraNavBar.NavBarLinkEventArgs e)
         {
-            // 添加
-            var newUser = new User
+            if (this.IsHandleCreated)
             {
-                Name = System.Guid.NewGuid().ToString(),
-                Enable = true,
-            };
-            newUser.Insert();
-            // 自增字段user.ID已经取得值
-            XTrace.WriteLine("用户ID：{0}", newUser.ID);
-            if (bindingSourceMain.DataSource != null)
-            {
-                bindingSourceMain.Add(newUser);
-                ////MessageBox.Show(bindingSourceMain.DataSource.GetType().ToString());
-                if ((bindingSourceMain.DataSource as BindingSource).DataSource is IList<User>)
+                System.Diagnostics.Trace.WriteLine("navBarItem1_LinkClicked");
+                System.Diagnostics.Debug.WriteLine("navBarItem1_LinkClicked");
+
+                // 添加
+                var newUser = new UserX
                 {
-                    IList<User> listUser = (bindingSourceMain.DataSource as BindingSource).DataSource as List<User>;
+                    Name = System.Guid.NewGuid().ToString(),
+                    Enable = true,
+                };
+                newUser.Insert();
+                // 自增字段user.ID已经取得值
+                XTrace.WriteLine("用户ID：{0}", newUser.ID);
+                if (bindingSourceMain.DataSource != null)
+                {
+                    bindingSourceMain.Add(newUser);
+                    ////MessageBox.Show(bindingSourceMain.DataSource.GetType().ToString());
+                    if ((bindingSourceMain.DataSource as BindingSource).DataSource is IList<UserX>)
+                    {
+                        IList<UserX> listUser = (bindingSourceMain.DataSource as BindingSource).DataSource as List<UserX>;
+                    }
                 }
             }
         }
 
         private void navBarItem2_LinkClicked(object sender, DevExpress.XtraNavBar.NavBarLinkEventArgs e)
         {
-            System.Diagnostics.Trace.WriteLine("navBarItem2_LinkClicked");
-            System.Diagnostics.Debug.WriteLine("navBarItem2_LinkClicked");
-            IList<User> listUser = User.FindAll();
-            if (listUser.Count > 0)
+            if (this.IsHandleCreated)
             {
-                if (bindingSourceMain.DataSource == null)
+                System.Diagnostics.Trace.WriteLine("navBarItem2_LinkClicked");
+                System.Diagnostics.Debug.WriteLine("navBarItem2_LinkClicked");
+                IList<UserX> listUser = UserX.FindAll();
+                if (listUser.Count > 0)
                 {
-                    bindingSourceMain.DataSource = new BindingSource(listUser, null);
-                }
-                else
-                {
-                    bindingSourceMain.Clear();
-                    foreach (var eachvar in listUser)
+                    if (bindingSourceMain.DataSource == null)
                     {
-                        bindingSourceMain.Add(eachvar);
+                        bindingSourceMain.DataSource = new BindingSource(listUser, null);
                     }
-                }
+                    else
+                    {
+                        bindingSourceMain.Clear();
+                        foreach (var eachvar in listUser)
+                        {
+                            bindingSourceMain.Add(eachvar);
+                        }
+                    }
 
-            }        }
+                }
+            }
+        }
 
         private void bindingSourceMain_BindingComplete(object sender, BindingCompleteEventArgs e)
         {
@@ -106,10 +116,10 @@ namespace DXApplicationXCode
                 this.dataNavigatorMain.DataSource = bindingSourceMain;
 
                 this.textEditName.DataBindings.Clear();
-                this.textEditName.DataBindings.Add(new System.Windows.Forms.Binding("Text", bindingSourceMain, User.__.Name, true));
+                this.textEditName.DataBindings.Add(new System.Windows.Forms.Binding("Text", bindingSourceMain, UserX.__.Name, true));
 
                 this.textEditPhone.DataBindings.Clear();
-                this.textEditPhone.DataBindings.Add(new System.Windows.Forms.Binding("Text", bindingSourceMain, User.__.Mobile, true));
+                this.textEditPhone.DataBindings.Add(new System.Windows.Forms.Binding("Text", bindingSourceMain, UserX.__.Mobile, true));
             }
         }
 
@@ -117,12 +127,12 @@ namespace DXApplicationXCode
         {
             if (bindingSourceMain.Current != null)
             {
-                if (bindingSourceMain.Current is User)
+                if (bindingSourceMain.Current is UserX)
                 {
                     bindingSourceMain.EndEdit();
                     bindingSourceMain.ResetBindings(false);
 
-                    User currentUser = bindingSourceMain.Current as User;
+                    UserX currentUser = bindingSourceMain.Current as UserX;
                     currentUser.Update();
                 }
             }
@@ -163,14 +173,14 @@ namespace DXApplicationXCode
             int[] selectedRows = gridViewUser.GetSelectedRows();
             if (selectedRows.Length > 0)
             {
-                List<User> listUser = new List<User>();
+                List<UserX> listUser = new List<UserX>();
                 foreach (var eachvar in selectedRows)
                 {
-                    listUser.Add(this.gridViewUser.GetRow(eachvar) as User);
+                    listUser.Add(this.gridViewUser.GetRow(eachvar) as UserX);
                 }
                 for (int index = 0; index < listUser.Count; index++)
                 {
-                    User deleteuser = listUser[index];
+                    UserX deleteuser = listUser[index];
                     deleteuser.Delete();
                 }
             }
@@ -212,7 +222,7 @@ namespace DXApplicationXCode
             {
                 ////int selectRow = gridViewUser.GetSelectedRows()[0];
                 int selectRow = gridViewUser.FocusedRowHandle;
-                User currentUser = this.gridViewUser.GetRow(selectRow) as User;
+                UserX currentUser = this.gridViewUser.GetRow(selectRow) as UserX;
 
 
                 XtraFormUser newXtraFormUser = new XtraFormUser();
@@ -223,21 +233,27 @@ namespace DXApplicationXCode
 
         private void navBarItemAsyncMethod_LinkClicked(object sender, DevExpress.XtraNavBar.NavBarLinkEventArgs e)
         {
-            AsyncDemoClass newAsyncDemoClass = new AsyncDemoClass();
-            newAsyncDemoClass.DoSomethingInAsyncTaskDemo += new DoSomethingInAsyncTaskDemoEventHandler(DoSomethingInAsyncTaskDemo);
-            newAsyncDemoClass.ShowMessageInAsyncCallbackDemo += new ShowMessageInAsyncCallbackDemoEventHandler(ShowMessageInAsyncCallbackDemo);
-            //newAsyncDemoClass.ShowMessageInAsyncDemo += new ShowMessageInAsyncDemoEventHandler(ShowMessageInAsyncDemo);
-            //newAsyncDemoClass.ShowMessageInAsyncDemo += new ShowMessageInAsyncDemoEventHandler(ShowMessageInAsyncDemo);
-            //newAsyncDemoClass.ShowMessageInAsyncDemo += new ShowMessageInAsyncDemoEventHandler(ShowMessageInAsyncDemo);
-            //newAsyncDemoClass.ShowMessageInAsyncDemo += new ShowMessageInAsyncDemoEventHandler(ShowMessageInAsyncDemo);
-            var varTask = newAsyncDemoClass.taskStartAsyncDelegate(3000);
-            MessageBox.Show("varTask");
+            if (this.IsHandleCreated)
+            {
+                System.Diagnostics.Trace.WriteLine("navBarItemAsyncMethod_LinkClicked");
+                System.Diagnostics.Debug.WriteLine("navBarItemAsyncMethod_LinkClicked"); AsyncDemoClass newAsyncDemoClass = new AsyncDemoClass();
+                newAsyncDemoClass.DoSomethingInAsyncTaskDemo += new DoSomethingInAsyncTaskDemoEventHandler(DoSomethingInAsyncTaskDemo);
+                newAsyncDemoClass.ShowMessageInAsyncCallbackDemo += new ShowMessageInAsyncCallbackDemoEventHandler(ShowMessageInAsyncCallbackDemo);
+                //newAsyncDemoClass.ShowMessageInAsyncDemo += new ShowMessageInAsyncDemoEventHandler(ShowMessageInAsyncDemo);
+                //newAsyncDemoClass.ShowMessageInAsyncDemo += new ShowMessageInAsyncDemoEventHandler(ShowMessageInAsyncDemo);
+                //newAsyncDemoClass.ShowMessageInAsyncDemo += new ShowMessageInAsyncDemoEventHandler(ShowMessageInAsyncDemo);
+                //newAsyncDemoClass.ShowMessageInAsyncDemo += new ShowMessageInAsyncDemoEventHandler(ShowMessageInAsyncDemo);
+                var varTask = newAsyncDemoClass.taskStartAsyncDelegate(3000);
+                MessageBox.Show("varTask");
+            }
         }
 
         public void DoSomethingInAsyncTaskDemo(object sender, object message)
         {
             if (this.IsHandleCreated)
             {
+                System.Diagnostics.Trace.WriteLine("DoSomethingInAsyncTaskDemo");
+                System.Diagnostics.Debug.WriteLine("DoSomethingInAsyncTaskDemo"); AsyncDemoClass newAsyncDemoClass = new AsyncDemoClass();
                 new Thread(new ParameterizedThreadStart(delegate (object threadObject)
                 {
                     String messageString = threadObject as String;
@@ -253,6 +269,9 @@ namespace DXApplicationXCode
         {
             if (this.IsHandleCreated)
             {
+                System.Diagnostics.Trace.WriteLine("ShowMessageInAsyncCallbackDemo");
+                System.Diagnostics.Debug.WriteLine("ShowMessageInAsyncCallbackDemo"); AsyncDemoClass newAsyncDemoClass = new AsyncDemoClass();
+
                 new Thread(new ParameterizedThreadStart(delegate (object threadObject)
                 {
                     String messageString = threadObject as String;
@@ -267,7 +286,47 @@ namespace DXApplicationXCode
 
         private void navBarItemDrawImge_LinkClicked(object sender, DevExpress.XtraNavBar.NavBarLinkEventArgs e)
         {
+            if (this.IsHandleCreated)
+            {
+                System.Diagnostics.Trace.WriteLine("navBarItemDrawImge_LinkClicked");
+                System.Diagnostics.Debug.WriteLine("navBarItemDrawImge_LinkClicked"); AsyncDemoClass newAsyncDemoClass = new AsyncDemoClass();
+            }
+        }
 
+        private void navBarControl_SelectedLinkChanged(object sender, DevExpress.XtraNavBar.ViewInfo.NavBarSelectedLinkChangedEventArgs e)
+        {
+            if (this.IsHandleCreated)
+            {
+                System.Diagnostics.Trace.WriteLine("navBarControl_SelectedLinkChanged");
+                System.Diagnostics.Debug.WriteLine("navBarControl_SelectedLinkChanged"); AsyncDemoClass newAsyncDemoClass = new AsyncDemoClass();
+            }
+        }
+
+        private void navBarControl_LinkClicked(object sender, DevExpress.XtraNavBar.NavBarLinkEventArgs e)
+        {
+            if (this.IsHandleCreated)
+            {
+                System.Diagnostics.Trace.WriteLine("navBarControl_LinkClicked");
+                System.Diagnostics.Debug.WriteLine("navBarControl_LinkClicked"); AsyncDemoClass newAsyncDemoClass = new AsyncDemoClass();
+            }
+        }
+
+        private void navBarControl_LinkPressed(object sender, DevExpress.XtraNavBar.NavBarLinkEventArgs e)
+        {
+            System.Diagnostics.Trace.WriteLine("navBarControl_LinkPressed");
+            System.Diagnostics.Debug.WriteLine("navBarControl_LinkPressed"); AsyncDemoClass newAsyncDemoClass = new AsyncDemoClass();
+        }
+
+        private void navBarItemAll_ItemChanged(object sender, EventArgs e)
+        {
+            System.Diagnostics.Trace.WriteLine("navBarItemAll_ItemChanged");
+            System.Diagnostics.Debug.WriteLine("navBarItemAll_ItemChanged"); AsyncDemoClass newAsyncDemoClass = new AsyncDemoClass();
+        }
+
+        private void navBarItemAll_LinkPressed(object sender, DevExpress.XtraNavBar.NavBarLinkEventArgs e)
+        {
+            System.Diagnostics.Trace.WriteLine("navBarItemAll_LinkPressed");
+            System.Diagnostics.Debug.WriteLine("navBarItemAll_LinkPressed"); AsyncDemoClass newAsyncDemoClass = new AsyncDemoClass();
         }
     }
 }

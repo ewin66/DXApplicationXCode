@@ -1,103 +1,93 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.IO;
 using System.Linq;
-using System.Reflection;
-using System.Runtime.Serialization;
-using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
-using System.Web;
-using System.Xml.Serialization;
-using NewLife;
+using NewLife.Collections;
 using NewLife.Data;
-using NewLife.Log;
-using NewLife.Model;
-using NewLife.Reflection;
-using NewLife.Threading;
-using NewLife.Web;
 using XCode;
 using XCode.Cache;
-using XCode.Configuration;
-using XCode.DataAccessLayer;
-using XCode.Membership;
+using XCode.Statistics;
 
 namespace XCode.Membership
 {
+    /// <summary>访问统计模型</summary>
+    public class VisitStatModel : StatModel<VisitStatModel>
+    {
+        #region 属性
+        /// <summary>页面</summary>
+        public String Page { get; set; }
+
+        /// <summary>标题</summary>
+        public String Title { get; set; }
+
+        /// <summary>耗时</summary>
+        public Int32 Cost { get; set; }
+
+        /// <summary>用户</summary>
+        public String User { get; set; }
+
+        /// <summary>IP地址</summary>
+        public String IP { get; set; }
+
+        /// <summary>错误</summary>
+        public String Error { get; set; }
+        #endregion
+
+        #region 相等比较
+        /// <summary>相等</summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public override Boolean Equals(Object obj)
+        {
+            if (!base.Equals(obj)) return false;
+
+            if (obj is VisitStatModel model) return Page + "" == model.Page + "";
+
+            return false;
+        }
+
+        /// <summary>获取哈希</summary>
+        /// <returns></returns>
+        public override Int32 GetHashCode() => base.GetHashCode() ^ Page.GetHashCode();
+        #endregion
+    }
+
     /// <summary>访问统计</summary>
-    public partial class VisitStat : Entity<VisitStat>
+    public partial class VisitStat : Entity<VisitStat>, IStat
     {
         #region 对象操作
         static VisitStat()
         {
             // 累加字段
-            //var df = Meta.Factory.AdditionalFields;
-            //df.Add(__.Level);
+            var df = Meta.Factory.AdditionalFields;
+            df.Add(__.Times);
+            df.Add(__.Users);
+            df.Add(__.IPs);
+            df.Add(__.Error);
 
             // 过滤器 UserModule、TimeModule、IPModule
             Meta.Modules.Add<TimeModule>();
+
+#if !DEBUG
+            // 关闭SQL日志
+            Meta.Session.Dal.Db.ShowSQL = false;
+#endif
         }
 
         /// <summary>验证数据，通过抛出异常的方式提示验证失败。</summary>
-        /// <param name="isNew">是否插入</param>
+        /// <param name="isNew"></param>
         public override void Valid(Boolean isNew)
         {
-            // 如果没有脏数据，则不需要进行任何处理
-            if (!HasDirty) return;
+            // 截取长度
+            var len = _.Title.Length;
+            if (len <= 0) len = 50;
+            if (!Title.IsNullOrEmpty() && Title.Length > len) Title = Title.Substring(0, len);
 
-            // 这里验证参数范围，建议抛出参数异常，指定参数名，前端用户界面可以捕获参数异常并聚焦到对应的参数输入框
-            if (Page.IsNullOrEmpty()) throw new ArgumentNullException(nameof(Page), "页面不能为空！");
-
-            // 在新插入数据或者修改了指定字段时进行修正
-            //if (isNew && !Dirtys[nameof(CreateTime)]) CreateTime = DateTime.Now;
-            //if (!Dirtys[nameof(UpdateTime)]) UpdateTime = DateTime.Now;
-
-            // 检查唯一索引
-            // CheckExist(isNew, __.Level, __.Time, __.Page);
+            len = _.Page.Length;
+            if (len <= 0) len = 50;
+            if (!Page.IsNullOrEmpty() && Page.Length > len) Page = Page.Substring(0, len);
         }
-
-        ///// <summary>首次连接数据库时初始化数据，仅用于实体类重载，用户不应该调用该方法</summary>
-        //[EditorBrowsable(EditorBrowsableState.Never)]
-        //protected override void InitData()
-        //{
-        //    // InitData一般用于当数据表没有数据时添加一些默认数据，该实体类的任何第一次数据库操作都会触发该方法，默认异步调用
-        //    if (Meta.Session.Count > 0) return;
-
-        //    if (XTrace.Debug) XTrace.WriteLine("开始初始化VisitStat[访问统计]数据……");
-
-        //    var entity = new VisitStat();
-        //    entity.ID = 0;
-        //    entity.Level = 0;
-        //    entity.Time = DateTime.Now;
-        //    entity.Page = "abc";
-        //    entity.Title = "abc";
-        //    entity.Times = 0;
-        //    entity.Users = 0;
-        //    entity.IPs = 0;
-        //    entity.Error = 0;
-        //    entity.Cost = 0;
-        //    entity.MaxCost = 0;
-        //    entity.CreateTime = DateTime.Now;
-        //    entity.UpdateTime = DateTime.Now;
-        //    entity.Remark = "abc";
-        //    entity.Insert();
-
-        //    if (XTrace.Debug) XTrace.WriteLine("完成初始化VisitStat[访问统计]数据！");
-        //}
-
-        ///// <summary>已重载。基类先调用Valid(true)验证数据，然后在事务保护内调用OnInsert</summary>
-        ///// <returns></returns>
-        //public override Int32 Insert()
-        //{
-        //    return base.Insert();
-        //}
-
-        ///// <summary>已重载。在事务保护范围内处理业务，位于Valid之后</summary>
-        ///// <returns></returns>
-        //protected override Int32 OnDelete()
-        //{
-        //    return base.OnDelete();
-        //}
         #endregion
 
         #region 扩展属性
@@ -111,20 +101,168 @@ namespace XCode.Membership
         {
             if (id <= 0) return null;
 
-            // 实体缓存
-            if (Meta.Session.Count < 1000) return Meta.Cache.Find(e => e.ID == id);
+            //// 实体缓存
+            //if (Meta.Count < 1000) return Meta.Cache.Find(e => e.ID == id);
 
             // 单对象缓存
             return Meta.SingleCache[id];
 
             //return Find(_.ID == id);
         }
+
+        private static DictionaryCache<VisitStatModel, VisitStat> _cache = new DictionaryCache<VisitStatModel, VisitStat> { Expire = 20 * 60, Period = 60 };
+        /// <summary>根据模型查找</summary>
+        /// <param name="model"></param>
+        /// <param name="cache"></param>
+        /// <returns></returns>
+        public static VisitStat FindByModel(VisitStatModel model, Boolean cache)
+        {
+            if (model == null) return null;
+
+            if (cache)
+            {
+                if (_cache.FindMethod == null) _cache.FindMethod = m => FindByModel(m, false);
+
+                return _cache[model];
+            }
+
+            var exp = new WhereExpression();
+            exp &= _.Level == model.Level;
+            if (model.Level > 0 && model.Time > DateTime.MinValue) exp &= _.Time == model.GetDate(model.Level);
+            exp &= _.Page == model.Page;
+
+            return Find(exp);
+        }
         #endregion
 
         #region 高级查询
+        /// <summary>高级查询访问统计</summary>
+        /// <param name="model"></param>
+        /// <param name="start"></param>
+        /// <param name="end"></param>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        public static IList<VisitStat> Search(VisitStatModel model, DateTime start, DateTime end, PageParameter param)
+        {
+            var exp = new WhereExpression();
+            if (model.Level >= 0) exp &= _.Level == model.Level;
+            if (model.Level > 0 && model.Time > DateTime.MinValue) exp &= _.Time == model.GetDate(model.Level);
+            if (!model.Page.IsNullOrEmpty()) exp &= _.Page == model.Page;
+
+            exp &= _.Time.Between(start, end);
+
+            return FindAll(exp, param);
+        }
+
+        static FieldCache<VisitStat> PageCache = new FieldCache<VisitStat>(_.Page);
+
+        /// <summary>查找所有</summary>
+        /// <returns></returns>
+        public static IList<VisitStat> FindAllPage()
+        {
+            return PageCache.Entities;
+        }
+
+        /// <summary>获取所有名称</summary>
+        /// <returns></returns>
+        public static IDictionary<String, String> FindAllPageName()
+        {
+            return PageCache.FindAllName();
+        }
         #endregion
 
         #region 业务操作
+        /// <summary>业务统计</summary>
+        /// <param name="model">模型</param>
+        /// <param name="levels">要统计的层级</param>
+        /// <returns></returns>
+        public static void Process(VisitStatModel model, params StatLevels[] levels)
+        {
+            model = model.Clone();
+
+            if (levels == null || levels.Length == 0) levels = new[] { StatLevels.Day, StatLevels.Month, StatLevels.Year };
+
+            // 当前
+            var list = model.Split(levels);
+
+            // 全局
+            if (!model.Page.IsNullOrEmpty())
+            {
+                model.Page = "全部";
+
+                list.AddRange(model.Split(levels));
+            }
+
+            // 并行处理
+            Parallel.ForEach(list, m => ProcessItem(m as VisitStatModel));
+        }
+
+        private static VisitStat ProcessItem(VisitStatModel model)
+        {
+            var st = StatHelper.GetOrAdd(model, FindByModel, e =>
+            {
+                e.Page = model.Page;
+            });
+            if (st == null) return null;
+
+            // 历史平均
+            if (st.Cost > 0)
+                st.Cost = (Int32)Math.Round(((Double)st.Cost * st.Times + model.Cost) / (st.Times + 1));
+            else
+                st.Cost = model.Cost;
+            if (model.Cost > st.MaxCost) st.MaxCost = model.Cost;
+
+            if (!model.Title.IsNullOrEmpty()) st.Title = model.Title;
+            //st.Times++;
+            Interlocked.Increment(ref st._Times);
+
+            if (!model.Error.IsNullOrEmpty())
+            {
+                //st.Error++;
+                Interlocked.Increment(ref st._Error);
+            }
+
+            var user = model.User;
+            var ip = model.IP;
+            if (!user.IsNullOrEmpty() || !ip.IsNullOrEmpty())
+            {
+                // 计算用户和IP，合并在Remark里面
+                var ss = new HashSet<String>((st.Remark + "").Split(","));
+                if (!user.IsNullOrEmpty() && !ss.Contains(user))
+                {
+                    //st.Users++;
+                    Interlocked.Increment(ref st._Users);
+                    ss.Add(user + "");
+                }
+                if (!ip.IsNullOrEmpty() && !ss.Contains(ip))
+                {
+                    //st.IPs++;
+                    Interlocked.Increment(ref st._IPs);
+                    ss.Add(ip);
+                }
+                // 如果超长，砍掉前面
+                var ds = ss as IEnumerable<String>;
+                var k = 1;
+                while (true)
+                {
+                    var str = ds.Join(",");
+                    if (str.Length <= _.Remark.Length)
+                    {
+                        st.Remark = str;
+                        break;
+                    }
+
+                    ds = ss.Skip(k++);
+                }
+            }
+
+            st.SaveAsync(5_000);
+
+            return st;
+        }
+        #endregion
+
+        #region 辅助
         #endregion
     }
 }

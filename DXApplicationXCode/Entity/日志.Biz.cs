@@ -1,31 +1,11 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web;
-using System.Xml.Serialization;
-using NewLife;
 using NewLife.Data;
-using NewLife.Log;
-using NewLife.Model;
-using NewLife.Reflection;
-using NewLife.Threading;
-using NewLife.Web;
-using XCode;
 using XCode.Cache;
-using XCode.Configuration;
-using XCode.DataAccessLayer;
-using XCode.Membership;
 
 namespace XCode.Membership
 {
     /// <summary>日志</summary>
-    [Serializable]
     [ModelCheckMode(ModelCheckModes.CheckTableWhenFirstUse)]
     public class Log : Log<Log> { }
 
@@ -35,123 +15,146 @@ namespace XCode.Membership
         #region 对象操作
         static Log()
         {
-            // 用于引发基类的静态构造函数，所有层次的泛型实体类都应该有一个
-            var entity = new TEntity();
+            Meta.Table.DataTable.InsertOnly = true;
+            //Meta.Factory.FullInsert = false;
 
-            // 累加字段
-            //var df = Meta.Factory.AdditionalFields;
-            //df.Add(__.LinkID);
-
-            // 过滤器 UserModule、TimeModule、IPModule
-            Meta.Modules.Add<UserModule>();
             Meta.Modules.Add<TimeModule>();
+            Meta.Modules.Add<UserModule>();
             Meta.Modules.Add<IPModule>();
+
+#if !DEBUG
+            // 关闭SQL日志
+            Meta.Session.Dal.Db.ShowSQL = false;
+#endif
         }
 
-        /// <summary>验证数据，通过抛出异常的方式提示验证失败。</summary>
-        /// <param name="isNew">是否插入</param>
+        /// <summary>已重载。记录当前管理员</summary>
+        /// <param name="isNew"></param>
         public override void Valid(Boolean isNew)
         {
-            // 如果没有脏数据，则不需要进行任何处理
-            if (!HasDirty) return;
+            base.Valid(isNew);
 
-            // 在新插入数据或者修改了指定字段时进行修正
-            // 处理当前已登录用户信息，可以由UserModule过滤器代劳
-            /*var user = ManageProvider.User;
-            if (user != null)
+            if (isNew)
             {
-                if (isNew && !Dirtys[nameof(CreateUserID)]) CreateUserID = user.ID;
-            }*/
-            //if (isNew && !Dirtys[nameof(CreateTime)]) CreateTime = DateTime.Now;
-            //if (isNew && !Dirtys[nameof(CreateIP)]) CreateIP = ManageProvider.UserHost;
+                // 自动设置当前登录用户
+                if (!IsDirty(__.UserName)) UserName = ManageProvider.Provider?.Current + "";
+            }
+
+            // 处理过长的备注
+            if (!Remark.IsNullOrEmpty() && Remark.Length > 500)
+            {
+                Remark = Remark.Substring(0, 500);
+            }
+
+            // 时间
+            if (isNew && CreateTime.Year < 2000 && !IsDirty(__.CreateTime)) CreateTime = DateTime.Now;
         }
 
-        ///// <summary>首次连接数据库时初始化数据，仅用于实体类重载，用户不应该调用该方法</summary>
-        //[EditorBrowsable(EditorBrowsableState.Never)]
-        //protected override void InitData()
-        //{
-        //    // InitData一般用于当数据表没有数据时添加一些默认数据，该实体类的任何第一次数据库操作都会触发该方法，默认异步调用
-        //    if (Meta.Session.Count > 0) return;
+        /// <summary></summary>
+        /// <returns></returns>
+        protected override Int32 OnUpdate() => throw new Exception("禁止修改日志！");
 
-        //    if (XTrace.Debug) XTrace.WriteLine("开始初始化TEntity[日志]数据……");
-
-        //    var entity = new TEntity();
-        //    entity.ID = 0;
-        //    entity.Category = "abc";
-        //    entity.Action = "abc";
-        //    entity.LinkID = 0;
-        //    entity.UserName = "abc";
-        //    entity.CreateUserID = 0;
-        //    entity.CreateIP = "abc";
-        //    entity.CreateTime = DateTime.Now;
-        //    entity.Remark = "abc";
-        //    entity.Insert();
-
-        //    if (XTrace.Debug) XTrace.WriteLine("完成初始化TEntity[日志]数据！");
-        //}
-
-        ///// <summary>已重载。基类先调用Valid(true)验证数据，然后在事务保护内调用OnInsert</summary>
-        ///// <returns></returns>
-        //public override Int32 Insert()
-        //{
-        //    return base.Insert();
-        //}
-
-        ///// <summary>已重载。在事务保护范围内处理业务，位于Valid之后</summary>
-        ///// <returns></returns>
-        //protected override Int32 OnDelete()
-        //{
-        //    return base.OnDelete();
-        //}
+        /// <summary></summary>
+        /// <returns></returns>
+        protected override Int32 OnDelete() => throw new Exception("禁止删除日志！");
         #endregion
 
         #region 扩展属性
         #endregion
 
         #region 扩展查询
-        /// <summary>根据编号查找</summary>
-        /// <param name="id">编号</param>
-        /// <returns>实体对象</returns>
-        public static TEntity FindByID(Int32 id)
+        /// <summary>查询</summary>
+        /// <param name="key"></param>
+        /// <param name="userid"></param>
+        /// <param name="category"></param>
+        /// <param name="start"></param>
+        /// <param name="end"></param>
+        /// <param name="p"></param>
+        /// <returns></returns>
+        [Obsolete]
+        public static IList<TEntity> Search(String key, Int32 userid, String category, DateTime start, DateTime end, PageParameter p)
         {
-            if (id <= 0) return null;
+            var exp = new WhereExpression();
+            //if (!key.IsNullOrEmpty()) exp &= (_.Action == key | _.Remark.Contains(key));
+            if (!category.IsNullOrEmpty() && category != "全部") exp &= _.Category == category;
+            if (userid >= 0) exp &= _.CreateUserID == userid;
+            exp &= _.CreateTime.Between(start, end);
 
-            // 实体缓存
-            if (Meta.Session.Count < 1000) return Meta.Cache.Find(e => e.ID == id);
+            // 先精确查询，再模糊
+            if (!key.IsNullOrEmpty())
+            {
+                var list = FindAll(exp & _.Action == key, p);
+                if (list.Count > 0) return list;
 
-            // 单对象缓存
-            return Meta.SingleCache[id];
+                exp &= _.Action.Contains(key) | _.Remark.Contains(key);
+            }
 
-            //return Find(_.ID == id);
+            return FindAll(exp, p);
         }
 
-        /// <summary>根据类别查找</summary>
-        /// <param name="category">类别</param>
-        /// <returns>实体列表</returns>
-        public static IList<TEntity> FindAllByCategory(String category)
+        /// <summary>查询</summary>
+        /// <param name="category"></param>
+        /// <param name="action"></param>
+        /// <param name="success"></param>
+        /// <param name="userid"></param>
+        /// <param name="start"></param>
+        /// <param name="end"></param>
+        /// <param name="key"></param>
+        /// <param name="p"></param>
+        /// <returns></returns>
+        public static IList<TEntity> Search(String category, String action, Boolean? success, Int32 userid, DateTime start, DateTime end, String key, PageParameter p)
         {
-            // 实体缓存
-            if (Meta.Session.Count < 1000) return Meta.Cache.FindAll(e => e.Category == category);
+            var exp = new WhereExpression();
 
-            return FindAll(_.Category == category);
-        }
+            if (!category.IsNullOrEmpty() && category != "全部") exp &= _.Category == category;
+            if (!action.IsNullOrEmpty() && action != "全部") exp &= _.Action == action;
+            if (success != null) exp &= _.Success == success;
+            if (userid >= 0) exp &= _.CreateUserID == userid;
+            exp &= _.CreateTime.Between(start, end);
 
-        /// <summary>根据用户编号查找</summary>
-        /// <param name="createuserid">用户编号</param>
-        /// <returns>实体列表</returns>
-        public static IList<TEntity> FindAllByCreateUserID(Int32 createuserid)
-        {
-            // 实体缓存
-            if (Meta.Session.Count < 1000) return Meta.Cache.FindAll(e => e.CreateUserID == createuserid);
+            if (!key.IsNullOrEmpty()) exp &= _.Remark.Contains(key);
 
-            return FindAll(_.CreateUserID == createuserid);
+            return FindAll(exp, p);
         }
         #endregion
 
-        #region 高级查询
+        #region 扩展操作
+        // Select Count(ID) as ID,Category From Log Where CreateTime>'2020-01-24 00:00:00' Group By Category Order By ID Desc limit 20
+        static readonly FieldCache<TEntity> CategoryCache = new FieldCache<TEntity>(_.Category)
+        {
+            Where = _.CreateTime > DateTime.Today.AddDays(-30) & Expression.Empty
+        };
+
+        /// <summary>获取所有类别名称，最近30天</summary>
+        /// <returns></returns>
+        public static IDictionary<String, String> FindAllCategoryName() => CategoryCache.FindAllName();
+
+        static readonly FieldCache<TEntity> ActionCache = new FieldCache<TEntity>(_.Action)
+        {
+            Where = _.CreateTime > DateTime.Today.AddDays(-30) & Expression.Empty
+        };
+
+        /// <summary>获取所有操作名称，最近30天</summary>
+        /// <returns></returns>
+        public static IDictionary<String, String> FindAllActionName() => ActionCache.FindAllName();
         #endregion
 
-        #region 业务操作
+        #region 业务
+        /// <summary>已重载。</summary>
+        /// <returns></returns>
+        public override String ToString() => $"{Category} {Action} {UserName} {CreateTime:yyyy-MM-dd HH:mm:ss} {Remark}";
         #endregion
+    }
+
+    public partial interface ILog
+    {
+        /// <summary>保存</summary>
+        /// <returns></returns>
+        Int32 Save();
+
+        /// <summary>异步保存</summary>
+        /// <param name="msDelay">延迟保存的时间。默认0ms近实时保存</param>
+        /// <returns></returns>
+        Boolean SaveAsync(Int32 msDelay = 0);
     }
 }

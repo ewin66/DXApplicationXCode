@@ -14,12 +14,12 @@ namespace DXApplicationXCode
 {
     public partial class XtraFormUser : DevExpress.XtraEditors.XtraForm
     {
-        User currentUser = null;
+        User<UserX> currentUser = null;
         public XtraFormUser()
         {
             InitializeComponent();
         }
-        public XtraFormUser(User currentUser)
+        public XtraFormUser(User<UserX> currentUser)
             :this()
         {
             

@@ -7,15 +7,15 @@ using XCode.DataAccessLayer;
 
 namespace XCode.Membership
 {
-    /// <summary>日志</summary>
+    /// <summary>字典参数</summary>
     [Serializable]
     [DataObject]
-    [Description("日志")]
-    [BindIndex("IX_Log_Action_Category_CreateTime", false, "Action,Category,CreateTime")]
-    [BindIndex("IX_Log_CreateUserID_CreateTime", false, "CreateUserID,CreateTime")]
-    [BindIndex("IX_Log_CreateTime", false, "CreateTime")]
-    [BindTable("Log", Description = "日志", ConnName = "Log", DbType = DatabaseType.None)]
-    public partial class Log<TEntity> : ILog
+    [Description("字典参数")]
+    [BindIndex("IU_Parameter_UserID_Category_Name", true, "UserID,Category,Name")]
+    [BindIndex("IX_Parameter_Category_Name", false, "Category,Name")]
+    [BindIndex("IX_Parameter_UpdateTime", false, "UpdateTime")]
+    [BindTable("Parameter", Description = "字典参数", ConnName = "Membership", DbType = DatabaseType.None)]
+    public partial class Parameter : IParameter
     {
         #region 属性
         private Int32 _ID;
@@ -26,6 +26,14 @@ namespace XCode.Membership
         [BindColumn("ID", "编号", "")]
         public Int32 ID { get => _ID; set { if (OnPropertyChanging(__.ID, value)) { _ID = value; OnPropertyChanged(__.ID); } } }
 
+        private Int32 _UserID;
+        /// <summary>用户。按用户区分参数，用户0表示系统级</summary>
+        [DisplayName("用户")]
+        [Description("用户。按用户区分参数，用户0表示系统级")]
+        [DataObjectField(false, false, false, 0)]
+        [BindColumn("UserID", "用户。按用户区分参数，用户0表示系统级", "")]
+        public Int32 UserID { get => _UserID; set { if (OnPropertyChanging(__.UserID, value)) { _UserID = value; OnPropertyChanged(__.UserID); } } }
+
         private String _Category;
         /// <summary>类别</summary>
         [DisplayName("类别")]
@@ -34,37 +42,45 @@ namespace XCode.Membership
         [BindColumn("Category", "类别", "")]
         public String Category { get => _Category; set { if (OnPropertyChanging(__.Category, value)) { _Category = value; OnPropertyChanged(__.Category); } } }
 
-        private String _Action;
-        /// <summary>操作</summary>
-        [DisplayName("操作")]
-        [Description("操作")]
+        private String _Name;
+        /// <summary>名称</summary>
+        [DisplayName("名称")]
+        [Description("名称")]
         [DataObjectField(false, false, true, 50)]
-        [BindColumn("Action", "操作", "")]
-        public String Action { get => _Action; set { if (OnPropertyChanging(__.Action, value)) { _Action = value; OnPropertyChanged(__.Action); } } }
+        [BindColumn("Name", "名称", "", Master = true)]
+        public String Name { get => _Name; set { if (OnPropertyChanging(__.Name, value)) { _Name = value; OnPropertyChanged(__.Name); } } }
 
-        private Int32 _LinkID;
-        /// <summary>链接</summary>
-        [DisplayName("链接")]
-        [Description("链接")]
+        private String _Value;
+        /// <summary>数值</summary>
+        [DisplayName("数值")]
+        [Description("数值")]
+        [DataObjectField(false, false, true, 200)]
+        [BindColumn("Value", "数值", "")]
+        public String Value { get => _Value; set { if (OnPropertyChanging(__.Value, value)) { _Value = value; OnPropertyChanged(__.Value); } } }
+
+        private String _LongValue;
+        /// <summary>长数值</summary>
+        [DisplayName("长数值")]
+        [Description("长数值")]
+        [DataObjectField(false, false, true, 2000)]
+        [BindColumn("LongValue", "长数值", "")]
+        public String LongValue { get => _LongValue; set { if (OnPropertyChanging(__.LongValue, value)) { _LongValue = value; OnPropertyChanged(__.LongValue); } } }
+
+        private XCode.Membership.ParameterKinds _Kind;
+        /// <summary>种类。0普通，21列表，22名值</summary>
+        [DisplayName("种类")]
+        [Description("种类。0普通，21列表，22名值")]
         [DataObjectField(false, false, false, 0)]
-        [BindColumn("LinkID", "链接", "")]
-        public Int32 LinkID { get => _LinkID; set { if (OnPropertyChanging(__.LinkID, value)) { _LinkID = value; OnPropertyChanged(__.LinkID); } } }
+        [BindColumn("Kind", "种类。0普通，21列表，22名值", "")]
+        public XCode.Membership.ParameterKinds Kind { get => _Kind; set { if (OnPropertyChanging(__.Kind, value)) { _Kind = value; OnPropertyChanged(__.Kind); } } }
 
-        private Boolean _Success;
-        /// <summary>成功</summary>
-        [DisplayName("成功")]
-        [Description("成功")]
+        private Boolean _Enable;
+        /// <summary>启用</summary>
+        [DisplayName("启用")]
+        [Description("启用")]
         [DataObjectField(false, false, false, 0)]
-        [BindColumn("Success", "成功", "")]
-        public Boolean Success { get => _Success; set { if (OnPropertyChanging(__.Success, value)) { _Success = value; OnPropertyChanged(__.Success); } } }
-
-        private String _UserName;
-        /// <summary>用户名</summary>
-        [DisplayName("用户名")]
-        [Description("用户名")]
-        [DataObjectField(false, false, true, 50)]
-        [BindColumn("UserName", "用户名", "")]
-        public String UserName { get => _UserName; set { if (OnPropertyChanging(__.UserName, value)) { _UserName = value; OnPropertyChanged(__.UserName); } } }
+        [BindColumn("Enable", "启用", "")]
+        public Boolean Enable { get => _Enable; set { if (OnPropertyChanging(__.Enable, value)) { _Enable = value; OnPropertyChanged(__.Enable); } } }
 
         private Int32 _Ex1;
         /// <summary>扩展1</summary>
@@ -139,19 +155,51 @@ namespace XCode.Membership
         public String CreateIP { get => _CreateIP; set { if (OnPropertyChanging(__.CreateIP, value)) { _CreateIP = value; OnPropertyChanged(__.CreateIP); } } }
 
         private DateTime _CreateTime;
-        /// <summary>时间</summary>
-        [DisplayName("时间")]
-        [Description("时间")]
+        /// <summary>创建时间</summary>
+        [DisplayName("创建时间")]
+        [Description("创建时间")]
         [DataObjectField(false, false, false, 0)]
-        [BindColumn("CreateTime", "时间", "")]
+        [BindColumn("CreateTime", "创建时间", "")]
         public DateTime CreateTime { get => _CreateTime; set { if (OnPropertyChanging(__.CreateTime, value)) { _CreateTime = value; OnPropertyChanged(__.CreateTime); } } }
 
+        private String _UpdateUser;
+        /// <summary>更新者</summary>
+        [DisplayName("更新者")]
+        [Description("更新者")]
+        [DataObjectField(false, false, true, 50)]
+        [BindColumn("UpdateUser", "更新者", "")]
+        public String UpdateUser { get => _UpdateUser; set { if (OnPropertyChanging(__.UpdateUser, value)) { _UpdateUser = value; OnPropertyChanged(__.UpdateUser); } } }
+
+        private Int32 _UpdateUserID;
+        /// <summary>更新用户</summary>
+        [DisplayName("更新用户")]
+        [Description("更新用户")]
+        [DataObjectField(false, false, false, 0)]
+        [BindColumn("UpdateUserID", "更新用户", "")]
+        public Int32 UpdateUserID { get => _UpdateUserID; set { if (OnPropertyChanging(__.UpdateUserID, value)) { _UpdateUserID = value; OnPropertyChanged(__.UpdateUserID); } } }
+
+        private String _UpdateIP;
+        /// <summary>更新地址</summary>
+        [DisplayName("更新地址")]
+        [Description("更新地址")]
+        [DataObjectField(false, false, true, 50)]
+        [BindColumn("UpdateIP", "更新地址", "")]
+        public String UpdateIP { get => _UpdateIP; set { if (OnPropertyChanging(__.UpdateIP, value)) { _UpdateIP = value; OnPropertyChanged(__.UpdateIP); } } }
+
+        private DateTime _UpdateTime;
+        /// <summary>更新时间</summary>
+        [DisplayName("更新时间")]
+        [Description("更新时间")]
+        [DataObjectField(false, false, false, 0)]
+        [BindColumn("UpdateTime", "更新时间", "")]
+        public DateTime UpdateTime { get => _UpdateTime; set { if (OnPropertyChanging(__.UpdateTime, value)) { _UpdateTime = value; OnPropertyChanged(__.UpdateTime); } } }
+
         private String _Remark;
-        /// <summary>详细信息</summary>
-        [DisplayName("详细信息")]
-        [Description("详细信息")]
-        [DataObjectField(false, false, true, 500)]
-        [BindColumn("Remark", "详细信息", "")]
+        /// <summary>备注</summary>
+        [DisplayName("备注")]
+        [Description("备注")]
+        [DataObjectField(false, false, true, 200)]
+        [BindColumn("Remark", "备注", "")]
         public String Remark { get => _Remark; set { if (OnPropertyChanging(__.Remark, value)) { _Remark = value; OnPropertyChanged(__.Remark); } } }
         #endregion
 
@@ -166,11 +214,13 @@ namespace XCode.Membership
                 switch (name)
                 {
                     case __.ID: return _ID;
+                    case __.UserID: return _UserID;
                     case __.Category: return _Category;
-                    case __.Action: return _Action;
-                    case __.LinkID: return _LinkID;
-                    case __.Success: return _Success;
-                    case __.UserName: return _UserName;
+                    case __.Name: return _Name;
+                    case __.Value: return _Value;
+                    case __.LongValue: return _LongValue;
+                    case __.Kind: return _Kind;
+                    case __.Enable: return _Enable;
                     case __.Ex1: return _Ex1;
                     case __.Ex2: return _Ex2;
                     case __.Ex3: return _Ex3;
@@ -181,6 +231,10 @@ namespace XCode.Membership
                     case __.CreateUserID: return _CreateUserID;
                     case __.CreateIP: return _CreateIP;
                     case __.CreateTime: return _CreateTime;
+                    case __.UpdateUser: return _UpdateUser;
+                    case __.UpdateUserID: return _UpdateUserID;
+                    case __.UpdateIP: return _UpdateIP;
+                    case __.UpdateTime: return _UpdateTime;
                     case __.Remark: return _Remark;
                     default: return base[name];
                 }
@@ -190,11 +244,13 @@ namespace XCode.Membership
                 switch (name)
                 {
                     case __.ID: _ID = value.ToInt(); break;
+                    case __.UserID: _UserID = value.ToInt(); break;
                     case __.Category: _Category = Convert.ToString(value); break;
-                    case __.Action: _Action = Convert.ToString(value); break;
-                    case __.LinkID: _LinkID = value.ToInt(); break;
-                    case __.Success: _Success = value.ToBoolean(); break;
-                    case __.UserName: _UserName = Convert.ToString(value); break;
+                    case __.Name: _Name = Convert.ToString(value); break;
+                    case __.Value: _Value = Convert.ToString(value); break;
+                    case __.LongValue: _LongValue = Convert.ToString(value); break;
+                    case __.Kind: _Kind = (XCode.Membership.ParameterKinds)value.ToInt(); break;
+                    case __.Enable: _Enable = value.ToBoolean(); break;
                     case __.Ex1: _Ex1 = value.ToInt(); break;
                     case __.Ex2: _Ex2 = value.ToInt(); break;
                     case __.Ex3: _Ex3 = value.ToDouble(); break;
@@ -205,6 +261,10 @@ namespace XCode.Membership
                     case __.CreateUserID: _CreateUserID = value.ToInt(); break;
                     case __.CreateIP: _CreateIP = Convert.ToString(value); break;
                     case __.CreateTime: _CreateTime = value.ToDateTime(); break;
+                    case __.UpdateUser: _UpdateUser = Convert.ToString(value); break;
+                    case __.UpdateUserID: _UpdateUserID = value.ToInt(); break;
+                    case __.UpdateIP: _UpdateIP = Convert.ToString(value); break;
+                    case __.UpdateTime: _UpdateTime = value.ToDateTime(); break;
                     case __.Remark: _Remark = Convert.ToString(value); break;
                     default: base[name] = value; break;
                 }
@@ -213,26 +273,32 @@ namespace XCode.Membership
         #endregion
 
         #region 字段名
-        /// <summary>取得日志字段信息的快捷方式</summary>
+        /// <summary>取得字典参数字段信息的快捷方式</summary>
         public partial class _
         {
             /// <summary>编号</summary>
             public static readonly Field ID = FindByName(__.ID);
 
+            /// <summary>用户。按用户区分参数，用户0表示系统级</summary>
+            public static readonly Field UserID = FindByName(__.UserID);
+
             /// <summary>类别</summary>
             public static readonly Field Category = FindByName(__.Category);
 
-            /// <summary>操作</summary>
-            public static readonly Field Action = FindByName(__.Action);
+            /// <summary>名称</summary>
+            public static readonly Field Name = FindByName(__.Name);
 
-            /// <summary>链接</summary>
-            public static readonly Field LinkID = FindByName(__.LinkID);
+            /// <summary>数值</summary>
+            public static readonly Field Value = FindByName(__.Value);
 
-            /// <summary>成功</summary>
-            public static readonly Field Success = FindByName(__.Success);
+            /// <summary>长数值</summary>
+            public static readonly Field LongValue = FindByName(__.LongValue);
 
-            /// <summary>用户名</summary>
-            public static readonly Field UserName = FindByName(__.UserName);
+            /// <summary>种类。0普通，21列表，22名值</summary>
+            public static readonly Field Kind = FindByName(__.Kind);
+
+            /// <summary>启用</summary>
+            public static readonly Field Enable = FindByName(__.Enable);
 
             /// <summary>扩展1</summary>
             public static readonly Field Ex1 = FindByName(__.Ex1);
@@ -261,35 +327,53 @@ namespace XCode.Membership
             /// <summary>创建地址</summary>
             public static readonly Field CreateIP = FindByName(__.CreateIP);
 
-            /// <summary>时间</summary>
+            /// <summary>创建时间</summary>
             public static readonly Field CreateTime = FindByName(__.CreateTime);
 
-            /// <summary>详细信息</summary>
+            /// <summary>更新者</summary>
+            public static readonly Field UpdateUser = FindByName(__.UpdateUser);
+
+            /// <summary>更新用户</summary>
+            public static readonly Field UpdateUserID = FindByName(__.UpdateUserID);
+
+            /// <summary>更新地址</summary>
+            public static readonly Field UpdateIP = FindByName(__.UpdateIP);
+
+            /// <summary>更新时间</summary>
+            public static readonly Field UpdateTime = FindByName(__.UpdateTime);
+
+            /// <summary>备注</summary>
             public static readonly Field Remark = FindByName(__.Remark);
 
             static Field FindByName(String name) => Meta.Table.FindByName(name);
         }
 
-        /// <summary>取得日志字段名称的快捷方式</summary>
+        /// <summary>取得字典参数字段名称的快捷方式</summary>
         public partial class __
         {
             /// <summary>编号</summary>
             public const String ID = "ID";
 
+            /// <summary>用户。按用户区分参数，用户0表示系统级</summary>
+            public const String UserID = "UserID";
+
             /// <summary>类别</summary>
             public const String Category = "Category";
 
-            /// <summary>操作</summary>
-            public const String Action = "Action";
+            /// <summary>名称</summary>
+            public const String Name = "Name";
 
-            /// <summary>链接</summary>
-            public const String LinkID = "LinkID";
+            /// <summary>数值</summary>
+            public const String Value = "Value";
 
-            /// <summary>成功</summary>
-            public const String Success = "Success";
+            /// <summary>长数值</summary>
+            public const String LongValue = "LongValue";
 
-            /// <summary>用户名</summary>
-            public const String UserName = "UserName";
+            /// <summary>种类。0普通，21列表，22名值</summary>
+            public const String Kind = "Kind";
+
+            /// <summary>启用</summary>
+            public const String Enable = "Enable";
 
             /// <summary>扩展1</summary>
             public const String Ex1 = "Ex1";
@@ -318,36 +402,54 @@ namespace XCode.Membership
             /// <summary>创建地址</summary>
             public const String CreateIP = "CreateIP";
 
-            /// <summary>时间</summary>
+            /// <summary>创建时间</summary>
             public const String CreateTime = "CreateTime";
 
-            /// <summary>详细信息</summary>
+            /// <summary>更新者</summary>
+            public const String UpdateUser = "UpdateUser";
+
+            /// <summary>更新用户</summary>
+            public const String UpdateUserID = "UpdateUserID";
+
+            /// <summary>更新地址</summary>
+            public const String UpdateIP = "UpdateIP";
+
+            /// <summary>更新时间</summary>
+            public const String UpdateTime = "UpdateTime";
+
+            /// <summary>备注</summary>
             public const String Remark = "Remark";
         }
         #endregion
     }
 
-    /// <summary>日志接口</summary>
-    public partial interface ILog
+    /// <summary>字典参数接口</summary>
+    public partial interface IParameter
     {
         #region 属性
         /// <summary>编号</summary>
         Int32 ID { get; set; }
 
+        /// <summary>用户。按用户区分参数，用户0表示系统级</summary>
+        Int32 UserID { get; set; }
+
         /// <summary>类别</summary>
         String Category { get; set; }
 
-        /// <summary>操作</summary>
-        String Action { get; set; }
+        /// <summary>名称</summary>
+        String Name { get; set; }
 
-        /// <summary>链接</summary>
-        Int32 LinkID { get; set; }
+        /// <summary>数值</summary>
+        String Value { get; set; }
 
-        /// <summary>成功</summary>
-        Boolean Success { get; set; }
+        /// <summary>长数值</summary>
+        String LongValue { get; set; }
 
-        /// <summary>用户名</summary>
-        String UserName { get; set; }
+        /// <summary>种类。0普通，21列表，22名值</summary>
+        XCode.Membership.ParameterKinds Kind { get; set; }
+
+        /// <summary>启用</summary>
+        Boolean Enable { get; set; }
 
         /// <summary>扩展1</summary>
         Int32 Ex1 { get; set; }
@@ -376,10 +478,22 @@ namespace XCode.Membership
         /// <summary>创建地址</summary>
         String CreateIP { get; set; }
 
-        /// <summary>时间</summary>
+        /// <summary>创建时间</summary>
         DateTime CreateTime { get; set; }
 
-        /// <summary>详细信息</summary>
+        /// <summary>更新者</summary>
+        String UpdateUser { get; set; }
+
+        /// <summary>更新用户</summary>
+        Int32 UpdateUserID { get; set; }
+
+        /// <summary>更新地址</summary>
+        String UpdateIP { get; set; }
+
+        /// <summary>更新时间</summary>
+        DateTime UpdateTime { get; set; }
+
+        /// <summary>备注</summary>
         String Remark { get; set; }
         #endregion
 

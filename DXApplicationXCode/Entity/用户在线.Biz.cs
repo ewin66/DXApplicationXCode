@@ -1,26 +1,15 @@
+﻿/*
+ * XCoder v6.9.6383.25987
+ * 作者：nnhy/STONE-PC
+ * 时间：2017-07-05 15:34:41
+ * 版权：版权所有 (C) 新生命开发团队 2002~2017
+*/
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web;
-using System.Xml.Serialization;
-using NewLife;
 using NewLife.Data;
-using NewLife.Log;
 using NewLife.Model;
-using NewLife.Reflection;
 using NewLife.Threading;
-using NewLife.Web;
-using XCode;
-using XCode.Cache;
-using XCode.Configuration;
-using XCode.DataAccessLayer;
-using XCode.Membership;
 
 namespace XCode.Membership
 {
@@ -30,127 +19,201 @@ namespace XCode.Membership
         #region 对象操作
         static UserOnline()
         {
-            // 累加字段
-            //var df = Meta.Factory.AdditionalFields;
-            //df.Add(__.UserID);
+            // 用于引发基类的静态构造函数，所有层次的泛型实体类都应该有一个
+            var entity = new UserOnline();
 
-            // 过滤器 UserModule、TimeModule、IPModule
             Meta.Modules.Add<TimeModule>();
             Meta.Modules.Add<IPModule>();
+
+            var df = Meta.Factory.AdditionalFields;
+            df.Add(__.Times);
+            df.Add(__.OnlineTime);
+
+            var sc = Meta.SingleCache;
+            if (sc.Expire < 20 * 60) sc.Expire = 20 * 60;
+            sc.FindSlaveKeyMethod = k => Find(__.SessionID, k);
+            sc.GetSlaveKeyMethod = e => e.SessionID;
+
+#if !DEBUG
+            // 关闭SQL日志
+            Meta.Session.Dal.Db.ShowSQL = false;
+#endif
         }
 
         /// <summary>验证数据，通过抛出异常的方式提示验证失败。</summary>
-        /// <param name="isNew">是否插入</param>
+        /// <param name="isNew"></param>
         public override void Valid(Boolean isNew)
         {
-            // 如果没有脏数据，则不需要进行任何处理
-            if (!HasDirty) return;
+            // 截取长度
+            var len = _.Status.Length;
+            if (len <= 0) len = 50;
+            if (!Status.IsNullOrEmpty() && Status.Length > len) Status = Status.Substring(0, len);
 
-            // 在新插入数据或者修改了指定字段时进行修正
-            //if (isNew && !Dirtys[nameof(CreateTime)]) CreateTime = DateTime.Now;
-            //if (!Dirtys[nameof(UpdateTime)]) UpdateTime = DateTime.Now;
-            //if (isNew && !Dirtys[nameof(CreateIP)]) CreateIP = ManageProvider.UserHost;
+            len = _.Page.Length;
+            if (len <= 0) len = 50;
+            if (!Page.IsNullOrEmpty() && Page.Length > len) Page = Page.Substring(0, len);
         }
-
-        ///// <summary>首次连接数据库时初始化数据，仅用于实体类重载，用户不应该调用该方法</summary>
-        //[EditorBrowsable(EditorBrowsableState.Never)]
-        //protected override void InitData()
-        //{
-        //    // InitData一般用于当数据表没有数据时添加一些默认数据，该实体类的任何第一次数据库操作都会触发该方法，默认异步调用
-        //    if (Meta.Session.Count > 0) return;
-
-        //    if (XTrace.Debug) XTrace.WriteLine("开始初始化UserOnline[用户在线]数据……");
-
-        //    var entity = new UserOnline();
-        //    entity.ID = 0;
-        //    entity.UserID = 0;
-        //    entity.Name = "abc";
-        //    entity.SessionID = "abc";
-        //    entity.Times = 0;
-        //    entity.Page = "abc";
-        //    entity.Status = "abc";
-        //    entity.OnlineTime = 0;
-        //    entity.CreateIP = "abc";
-        //    entity.CreateTime = DateTime.Now;
-        //    entity.UpdateTime = DateTime.Now;
-        //    entity.Insert();
-
-        //    if (XTrace.Debug) XTrace.WriteLine("完成初始化UserOnline[用户在线]数据！");
-        //}
-
-        ///// <summary>已重载。基类先调用Valid(true)验证数据，然后在事务保护内调用OnInsert</summary>
-        ///// <returns></returns>
-        //public override Int32 Insert()
-        //{
-        //    return base.Insert();
-        //}
-
-        ///// <summary>已重载。在事务保护范围内处理业务，位于Valid之后</summary>
-        ///// <returns></returns>
-        //protected override Int32 OnDelete()
-        //{
-        //    return base.OnDelete();
-        //}
         #endregion
 
         #region 扩展属性
-        /// <summary>用户</summary>
-        [XmlIgnore, IgnoreDataMember]
-        //[ScriptIgnore]
-        public User User { get { return Extends.Get(nameof(User), k => User.FindByID(UserID)); } }
-
-        /// <summary>用户</summary>
-        [XmlIgnore, IgnoreDataMember]
-        //[ScriptIgnore]
-        [DisplayName("用户")]
-        [Map(__.UserID, typeof(User), "ID")]
-        public String UserName { get { return User?.Name; } }
+        /// <summary>物理地址</summary>
+        [DisplayName("物理地址")]
+        //[Map(__.CreateIP)]
+        public String CreateAddress => CreateIP.IPToAddress();
         #endregion
 
         #region 扩展查询
-        /// <summary>根据编号查找</summary>
-        /// <param name="id">编号</param>
-        /// <returns>实体对象</returns>
+        /// <summary>根据会话编号查找</summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public static UserOnline FindByID(Int32 id)
         {
             if (id <= 0) return null;
 
-            // 实体缓存
-            if (Meta.Session.Count < 1000) return Meta.Cache.Find(e => e.ID == id);
-
-            // 单对象缓存
             return Meta.SingleCache[id];
-
-            //return Find(_.ID == id);
+            //return Find(__.ID, id);
         }
 
-        /// <summary>根据用户查找</summary>
-        /// <param name="userid">用户</param>
-        /// <returns>实体列表</returns>
+        /// <summary>根据会话编号查找</summary>
+        /// <param name="sessionid"></param>
+        /// <returns></returns>
+        public static UserOnline FindBySessionID(String sessionid)
+        {
+            if (sessionid.IsNullOrEmpty()) return null;
+
+            return Meta.SingleCache.GetItemWithSlaveKey(sessionid) as UserOnline;
+            //return Find(__.SessionID, sessionid);
+        }
+
+        /// <summary>根据用户编号查找</summary>
+        /// <param name="userid"></param>
+        /// <returns></returns>
         public static IList<UserOnline> FindAllByUserID(Int32 userid)
         {
-            // 实体缓存
-            if (Meta.Session.Count < 1000) return Meta.Cache.FindAll(e => e.UserID == userid);
+            if (userid <= 0) return new List<UserOnline>();
 
             return FindAll(_.UserID == userid);
-        }
-
-        /// <summary>根据会话查找</summary>
-        /// <param name="sessionid">会话</param>
-        /// <returns>实体列表</returns>
-        public static IList<UserOnline> FindAllBySessionID(String sessionid)
-        {
-            // 实体缓存
-            if (Meta.Session.Count < 1000) return Meta.Cache.FindAll(e => e.SessionID == sessionid);
-
-            return FindAll(_.SessionID == sessionid);
         }
         #endregion
 
         #region 高级查询
+        // 以下为自定义高级查询的例子
+
+        /// <summary>查询满足条件的记录集，分页、排序</summary>
+        /// <param name="userid">用户编号</param>
+        /// <param name="start">开始时间</param>
+        /// <param name="end">结束时间</param>
+        /// <param name="key">关键字</param>
+        /// <param name="param">分页排序参数，同时返回满足条件的总记录数</param>
+        /// <returns>实体集</returns>
+        public static IList<UserOnline> Search(Int32 userid, DateTime start, DateTime end, String key, PageParameter param)
+        {
+            // WhereExpression重载&和|运算符，作为And和Or的替代
+            // SearchWhereByKeys系列方法用于构建针对字符串字段的模糊搜索，第二个参数可指定要搜索的字段
+            var exp = SearchWhereByKeys(key, null, null);
+
+            // 以下仅为演示，Field（继承自FieldItem）重载了==、!=、>、<、>=、<=等运算符
+            //if (userid > 0) exp &= _.OperatorID == userid;
+            //if (isSign != null) exp &= _.IsSign == isSign.Value;
+            //exp &= _.OccurTime.Between(start, end); // 大于等于start，小于end，当start/end大于MinValue时有效
+
+            return FindAll(exp, param);
+        }
         #endregion
 
-        #region 业务操作
+        #region 扩展操作
+        #endregion
+
+        #region 业务
+        /// <summary>设置会话状态</summary>
+        /// <param name="sessionid"></param>
+        /// <param name="page"></param>
+        /// <param name="status"></param>
+        /// <param name="userid"></param>
+        /// <param name="name"></param>
+        /// <param name="ip"></param>
+        /// <returns></returns>
+        public static UserOnline SetStatus(String sessionid, String page, String status, Int32 userid = 0, String name = null, String ip = null)
+        {
+            var entity = FindBySessionID(sessionid) ?? new UserOnline();
+            entity.SessionID = sessionid;
+            entity.Page = page;
+            entity.Status = status;
+
+            entity.Times++;
+            if (userid > 0) entity.UserID = userid;
+            if (!name.IsNullOrEmpty()) entity.Name = name;
+
+            // 累加在线时间
+            entity.UpdateTime = DateTime.Now;
+            if (entity.ID == 0)
+            {
+                entity.CreateIP = ip;
+                entity.CreateTime = DateTime.Now;
+                entity.Insert();
+            }
+            else
+            {
+                entity.OnlineTime = (Int32)(entity.UpdateTime - entity.CreateTime).TotalSeconds;
+                entity.SaveAsync();
+            }
+
+            return entity;
+        }
+
+        private static TimerX _timer;
+
+        /// <summary>设置网页会话状态</summary>
+        /// <param name="sessionid"></param>
+        /// <param name="page"></param>
+        /// <param name="status"></param>
+        /// <param name="user"></param>
+        /// <param name="ip"></param>
+        /// <returns></returns>
+        public static UserOnline SetWebStatus(String sessionid, String page, String status, IManageUser user, String ip)
+        {
+            // 网页使用一个定时器来清理过期
+            if (_timer == null)
+            {
+                lock (typeof(UserOnline))
+                {
+                    if (_timer == null) _timer = new TimerX(s => ClearExpire(), null, 0, 30 * 1000) { Async = true };
+                }
+            }
+
+            if (user == null) return SetStatus(sessionid, page, status, 0, null, ip);
+
+            //if (user is IAuthUser user2) user2.Online = true;
+            //(user as IEntity).SaveAsync(1000);
+
+            return SetStatus(sessionid, page, status, user.ID, user + "", ip);
+        }
+
+        /// <summary>删除过期，指定过期时间</summary>
+        /// <param name="secTimeout">超时时间，20 * 60秒</param>
+        /// <returns></returns>
+        public static IList<UserOnline> ClearExpire(Int32 secTimeout = 20 * 60)
+        {
+            if (Meta.Count == 0) return new List<UserOnline>();
+
+            // 10分钟不活跃将会被删除
+            var exp = _.UpdateTime < DateTime.Now.AddSeconds(-secTimeout);
+            var list = FindAll(exp, null, null, 0, 0);
+            list.Delete();
+
+            //// 设置离线
+            //foreach (var item in list)
+            //{
+            //    var user = ManageProvider.Provider.FindByID(item.UserID);
+            //    if (user is IAuthUser user2)
+            //    {
+            //        user2.Online = false;
+            //        user2.Save();
+            //    }
+            //}
+
+            return list;
+        }
         #endregion
     }
 }
