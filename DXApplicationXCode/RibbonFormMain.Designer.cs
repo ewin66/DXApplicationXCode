@@ -35,6 +35,12 @@
             DevExpress.XtraGrid.GridFormatRule gridFormatRule2 = new DevExpress.XtraGrid.GridFormatRule();
             DevExpress.XtraGrid.GridFormatRule gridFormatRule3 = new DevExpress.XtraGrid.GridFormatRule();
             DevExpress.XtraGrid.GridFormatRule gridFormatRule4 = new DevExpress.XtraGrid.GridFormatRule();
+            DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions1 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RibbonFormMain));
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject1 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject2 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject3 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject4 = new DevExpress.Utils.SerializableAppearanceObject();
             DevExpress.Utils.Animation.PushTransition pushTransition1 = new DevExpress.Utils.Animation.PushTransition();
             DevExpress.XtraBars.Ribbon.GalleryItemGroup galleryItemGroup5 = new DevExpress.XtraBars.Ribbon.GalleryItemGroup();
             DevExpress.XtraBars.Ribbon.GalleryItemGroup galleryItemGroup6 = new DevExpress.XtraBars.Ribbon.GalleryItemGroup();
@@ -51,7 +57,6 @@
             DevExpress.XtraBars.Ribbon.ReduceOperation reduceOperation1 = new DevExpress.XtraBars.Ribbon.ReduceOperation();
             DevExpress.XtraBars.Ribbon.ReduceOperation reduceOperation2 = new DevExpress.XtraBars.Ribbon.ReduceOperation();
             DevExpress.XtraBars.Ribbon.ReduceOperation reduceOperation3 = new DevExpress.XtraBars.Ribbon.ReduceOperation();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RibbonFormMain));
             DevExpress.XtraEditors.ButtonsPanelControl.ButtonImageOptions buttonImageOptions1 = new DevExpress.XtraEditors.ButtonsPanelControl.ButtonImageOptions();
             DevExpress.XtraEditors.ButtonsPanelControl.ButtonImageOptions buttonImageOptions2 = new DevExpress.XtraEditors.ButtonsPanelControl.ButtonImageOptions();
             DevExpress.Utils.ContextButton contextButton1 = new DevExpress.Utils.ContextButton();
@@ -91,6 +96,7 @@
             this.colRoleName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colID = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colName = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.repositoryItemButtonEditName = new DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit();
             this.colPassword = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colDisplayName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colSex = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -160,20 +166,12 @@
             this.ribbonPage2 = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroup2 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonStatusBar = new DevExpress.XtraBars.Ribbon.RibbonStatusBar();
-            this.repositoryItemTextEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemTextEdit();
-            this.repositoryItemTextEdit2 = new DevExpress.XtraEditors.Repository.RepositoryItemTextEdit();
-            this.repositoryItemTextEdit3 = new DevExpress.XtraEditors.Repository.RepositoryItemTextEdit();
             this.tileViewUser = new DevExpress.XtraGrid.Views.Tile.TileView();
             this.advBandedGridViewUser = new DevExpress.XtraGrid.Views.BandedGrid.AdvBandedGridView();
             this.gridBand1 = new DevExpress.XtraGrid.Views.BandedGrid.GridBand();
             this.tabbedView = new DevExpress.XtraBars.Docking2010.Views.Tabbed.TabbedView(this.components);
             this.officeNavigationBar = new DevExpress.XtraBars.Navigation.OfficeNavigationBar();
             this.navBarControl = new DevExpress.XtraNavBar.NavBarControl();
-            this.customersNavBarGroup = new DevExpress.XtraNavBar.NavBarGroup();
-            this.navBarItem5 = new DevExpress.XtraNavBar.NavBarItem();
-            this.navBarItem6 = new DevExpress.XtraNavBar.NavBarItem();
-            this.navBarItem7 = new DevExpress.XtraNavBar.NavBarItem();
-            this.navBarItem8 = new DevExpress.XtraNavBar.NavBarItem();
             this.UserNavBarGroup = new DevExpress.XtraNavBar.NavBarGroup();
             this.navBarItemAdd = new DevExpress.XtraNavBar.NavBarItem();
             this.navBarItemRefresh = new DevExpress.XtraNavBar.NavBarItem();
@@ -182,6 +180,11 @@
             this.navBarItemLayoutViewUser = new DevExpress.XtraNavBar.NavBarItem();
             this.navBarItemTileViewUser = new DevExpress.XtraNavBar.NavBarItem();
             this.navBarItemCardViewUser = new DevExpress.XtraNavBar.NavBarItem();
+            this.customersNavBarGroup = new DevExpress.XtraNavBar.NavBarGroup();
+            this.navBarItem5 = new DevExpress.XtraNavBar.NavBarItem();
+            this.navBarItem6 = new DevExpress.XtraNavBar.NavBarItem();
+            this.navBarItem7 = new DevExpress.XtraNavBar.NavBarItem();
+            this.navBarItem8 = new DevExpress.XtraNavBar.NavBarItem();
             this.navBarGroupProduct = new DevExpress.XtraNavBar.NavBarGroup();
             this.navBarItemAsyncMethod = new DevExpress.XtraNavBar.NavBarItem();
             this.navBarItemDrawImge = new DevExpress.XtraNavBar.NavBarItem();
@@ -259,10 +262,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutViewUser)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutViewCardUser)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewUser)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemButtonEditName)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tileViewUser)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.advBandedGridViewUser)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tabbedView)).BeginInit();
@@ -367,10 +368,8 @@
             this.gridControlMain.MenuManager = this.ribbonControl;
             this.gridControlMain.Name = "gridControlMain";
             this.gridControlMain.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
-            this.repositoryItemTextEdit1,
-            this.repositoryItemTextEdit2,
-            this.repositoryItemTextEdit3});
-            this.gridControlMain.Size = new System.Drawing.Size(626, 292);
+            this.repositoryItemButtonEditName});
+            this.gridControlMain.Size = new System.Drawing.Size(626, 289);
             this.gridControlMain.TabIndex = 0;
             this.gridControlMain.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.layoutViewUser,
@@ -460,7 +459,8 @@
             new DevExpress.XtraGrid.GridGroupSummaryItem(DevExpress.Data.SummaryItemType.None, "", null, ""),
             new DevExpress.XtraGrid.GridGroupSummaryItem(DevExpress.Data.SummaryItemType.None, "", null, "")});
             this.gridViewUser.Name = "gridViewUser";
-            this.gridViewUser.OptionsBehavior.Editable = false;
+            this.gridViewUser.OptionsBehavior.EditorShowMode = DevExpress.Utils.EditorShowMode.MouseDown;
+            this.gridViewUser.OptionsBehavior.ReadOnly = true;
             this.gridViewUser.OptionsSelection.MultiSelect = true;
             this.gridViewUser.OptionsView.AutoCalcPreviewLineCount = true;
             this.gridViewUser.OptionsView.EnableAppearanceEvenRow = true;
@@ -518,10 +518,33 @@
             // 
             // colName
             // 
+            this.colName.ColumnEdit = this.repositoryItemButtonEditName;
             this.colName.FieldName = "Name";
             this.colName.Name = "colName";
+            this.colName.OptionsColumn.AllowSort = DevExpress.Utils.DefaultBoolean.False;
+            this.colName.OptionsFilter.AllowAutoFilter = false;
+            this.colName.OptionsFilter.AllowFilter = false;
+            this.colName.ShowButtonMode = DevExpress.XtraGrid.Views.Base.ShowButtonModeEnum.ShowAlways;
             this.colName.Visible = true;
             this.colName.VisibleIndex = 5;
+            // 
+            // repositoryItemButtonEditName
+            // 
+            this.repositoryItemButtonEditName.Appearance.Options.UseTextOptions = true;
+            this.repositoryItemButtonEditName.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.repositoryItemButtonEditName.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.UltraFlat;
+            editorButtonImageOptions1.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("editorButtonImageOptions1.SvgImage")));
+            serializableAppearanceObject1.Options.UseImage = true;
+            serializableAppearanceObject1.Options.UseTextOptions = true;
+            serializableAppearanceObject1.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.repositoryItemButtonEditName.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "按钮列", -1, true, true, false, editorButtonImageOptions1, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject1, serializableAppearanceObject2, serializableAppearanceObject3, serializableAppearanceObject4, "", null, null, DevExpress.Utils.ToolTipAnchor.Default)});
+            this.repositoryItemButtonEditName.ButtonsStyle = DevExpress.XtraEditors.Controls.BorderStyles.UltraFlat;
+            this.repositoryItemButtonEditName.Name = "repositoryItemButtonEditName";
+            this.repositoryItemButtonEditName.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.HideTextEditor;
+            this.repositoryItemButtonEditName.ButtonClick += new DevExpress.XtraEditors.Controls.ButtonPressedEventHandler(this.repositoryItemButtonEditName_ButtonClick);
+            this.repositoryItemButtonEditName.ButtonPressed += new DevExpress.XtraEditors.Controls.ButtonPressedEventHandler(this.repositoryItemButtonEditName_ButtonPressed);
+            this.repositoryItemButtonEditName.Click += new System.EventHandler(this.repositoryItemButtonEditName_Click);
             // 
             // colPassword
             // 
@@ -781,7 +804,7 @@
             this.ribbonControl.ShowItemCaptionsInPageHeader = true;
             this.ribbonControl.ShowItemCaptionsInQAT = true;
             this.ribbonControl.ShowSearchItem = true;
-            this.ribbonControl.Size = new System.Drawing.Size(1082, 147);
+            this.ribbonControl.Size = new System.Drawing.Size(1082, 160);
             this.ribbonControl.StatusBar = this.ribbonStatusBar;
             this.ribbonControl.ToolbarLocation = DevExpress.XtraBars.Ribbon.RibbonQuickAccessToolbarLocation.Hidden;
             // 
@@ -1067,8 +1090,8 @@
             // ribbonPageGroup
             // 
             this.ribbonPageGroup.AllowTextClipping = false;
+            this.ribbonPageGroup.CaptionButtonVisible = DevExpress.Utils.DefaultBoolean.False;
             this.ribbonPageGroup.Name = "ribbonPageGroup";
-            this.ribbonPageGroup.ShowCaptionButton = false;
             this.ribbonPageGroup.Text = "Appearance";
             // 
             // ribbonPage2
@@ -1087,25 +1110,10 @@
             // 
             this.ribbonStatusBar.ItemLinks.Add(this.barButtonItem5);
             this.ribbonStatusBar.ItemLinks.Add(this.barButtonItem6);
-            this.ribbonStatusBar.Location = new System.Drawing.Point(0, 613);
+            this.ribbonStatusBar.Location = new System.Drawing.Point(0, 620);
             this.ribbonStatusBar.Name = "ribbonStatusBar";
             this.ribbonStatusBar.Ribbon = this.ribbonControl;
-            this.ribbonStatusBar.Size = new System.Drawing.Size(1082, 31);
-            // 
-            // repositoryItemTextEdit1
-            // 
-            this.repositoryItemTextEdit1.AutoHeight = false;
-            this.repositoryItemTextEdit1.Name = "repositoryItemTextEdit1";
-            // 
-            // repositoryItemTextEdit2
-            // 
-            this.repositoryItemTextEdit2.AutoHeight = false;
-            this.repositoryItemTextEdit2.Name = "repositoryItemTextEdit2";
-            // 
-            // repositoryItemTextEdit3
-            // 
-            this.repositoryItemTextEdit3.AutoHeight = false;
-            this.repositoryItemTextEdit3.Name = "repositoryItemTextEdit3";
+            this.ribbonStatusBar.Size = new System.Drawing.Size(1082, 24);
             // 
             // tileViewUser
             // 
@@ -1132,7 +1140,7 @@
             // officeNavigationBar
             // 
             this.officeNavigationBar.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.officeNavigationBar.Location = new System.Drawing.Point(0, 566);
+            this.officeNavigationBar.Location = new System.Drawing.Point(0, 573);
             this.officeNavigationBar.Name = "officeNavigationBar";
             this.officeNavigationBar.NavigationClient = this.navBarControl;
             this.officeNavigationBar.Size = new System.Drawing.Size(1082, 47);
@@ -1162,57 +1170,19 @@
             this.navBarItemCardViewUser,
             this.navBarItemAsyncMethod,
             this.navBarItemDrawImge});
-            this.navBarControl.Location = new System.Drawing.Point(0, 147);
+            this.navBarControl.Location = new System.Drawing.Point(0, 160);
             this.navBarControl.MenuManager = this.ribbonControl;
             this.navBarControl.Name = "navBarControl";
             this.navBarControl.OptionsLayout.StoreAppearance = true;
             this.navBarControl.OptionsNavPane.ExpandedWidth = 151;
             this.navBarControl.PaintStyleKind = DevExpress.XtraNavBar.NavBarViewKind.NavigationPane;
-            this.navBarControl.Size = new System.Drawing.Size(151, 419);
+            this.navBarControl.Size = new System.Drawing.Size(151, 413);
             this.navBarControl.TabIndex = 0;
             this.navBarControl.Text = "navBarControl";
             this.navBarControl.SelectedLinkChanged += new DevExpress.XtraNavBar.ViewInfo.NavBarSelectedLinkChangedEventHandler(this.navBarControl_SelectedLinkChanged);
             this.navBarControl.ActiveGroupChanged += new DevExpress.XtraNavBar.NavBarGroupEventHandler(this.navBarControl_ActiveGroupChanged);
             this.navBarControl.LinkPressed += new DevExpress.XtraNavBar.NavBarLinkEventHandler(this.navBarControl_LinkPressed);
             this.navBarControl.LinkClicked += new DevExpress.XtraNavBar.NavBarLinkEventHandler(this.navBarControl_LinkClicked);
-            // 
-            // customersNavBarGroup
-            // 
-            this.customersNavBarGroup.Caption = "客户";
-            this.customersNavBarGroup.ItemLinks.AddRange(new DevExpress.XtraNavBar.NavBarItemLink[] {
-            new DevExpress.XtraNavBar.NavBarItemLink(this.navBarItem5),
-            new DevExpress.XtraNavBar.NavBarItemLink(this.navBarItem6),
-            new DevExpress.XtraNavBar.NavBarItemLink(this.navBarItem7),
-            new DevExpress.XtraNavBar.NavBarItemLink(this.navBarItem8)});
-            this.customersNavBarGroup.Name = "customersNavBarGroup";
-            // 
-            // navBarItem5
-            // 
-            this.navBarItem5.Caption = "navBarItem5";
-            this.navBarItem5.Name = "navBarItem5";
-            this.navBarItem5.LinkPressed += new DevExpress.XtraNavBar.NavBarLinkEventHandler(this.navBarItemAll_LinkPressed);
-            this.navBarItem5.ItemChanged += new System.EventHandler(this.navBarItemAll_ItemChanged);
-            // 
-            // navBarItem6
-            // 
-            this.navBarItem6.Caption = "navBarItem6";
-            this.navBarItem6.Name = "navBarItem6";
-            this.navBarItem6.LinkPressed += new DevExpress.XtraNavBar.NavBarLinkEventHandler(this.navBarItemAll_LinkPressed);
-            this.navBarItem6.ItemChanged += new System.EventHandler(this.navBarItemAll_ItemChanged);
-            // 
-            // navBarItem7
-            // 
-            this.navBarItem7.Caption = "navBarItem7";
-            this.navBarItem7.Name = "navBarItem7";
-            this.navBarItem7.LinkPressed += new DevExpress.XtraNavBar.NavBarLinkEventHandler(this.navBarItemAll_LinkPressed);
-            this.navBarItem7.ItemChanged += new System.EventHandler(this.navBarItemAll_ItemChanged);
-            // 
-            // navBarItem8
-            // 
-            this.navBarItem8.Caption = "navBarItem8";
-            this.navBarItem8.Name = "navBarItem8";
-            this.navBarItem8.LinkPressed += new DevExpress.XtraNavBar.NavBarLinkEventHandler(this.navBarItemAll_LinkPressed);
-            this.navBarItem8.ItemChanged += new System.EventHandler(this.navBarItemAll_ItemChanged);
             // 
             // UserNavBarGroup
             // 
@@ -1284,6 +1254,44 @@
             this.navBarItemCardViewUser.LinkClicked += new DevExpress.XtraNavBar.NavBarLinkEventHandler(this.navBarItemCardViewUser_LinkClicked);
             this.navBarItemCardViewUser.ItemChanged += new System.EventHandler(this.navBarItemAll_ItemChanged);
             // 
+            // customersNavBarGroup
+            // 
+            this.customersNavBarGroup.Caption = "客户";
+            this.customersNavBarGroup.ItemLinks.AddRange(new DevExpress.XtraNavBar.NavBarItemLink[] {
+            new DevExpress.XtraNavBar.NavBarItemLink(this.navBarItem5),
+            new DevExpress.XtraNavBar.NavBarItemLink(this.navBarItem6),
+            new DevExpress.XtraNavBar.NavBarItemLink(this.navBarItem7),
+            new DevExpress.XtraNavBar.NavBarItemLink(this.navBarItem8)});
+            this.customersNavBarGroup.Name = "customersNavBarGroup";
+            // 
+            // navBarItem5
+            // 
+            this.navBarItem5.Caption = "navBarItem5";
+            this.navBarItem5.Name = "navBarItem5";
+            this.navBarItem5.LinkPressed += new DevExpress.XtraNavBar.NavBarLinkEventHandler(this.navBarItemAll_LinkPressed);
+            this.navBarItem5.ItemChanged += new System.EventHandler(this.navBarItemAll_ItemChanged);
+            // 
+            // navBarItem6
+            // 
+            this.navBarItem6.Caption = "navBarItem6";
+            this.navBarItem6.Name = "navBarItem6";
+            this.navBarItem6.LinkPressed += new DevExpress.XtraNavBar.NavBarLinkEventHandler(this.navBarItemAll_LinkPressed);
+            this.navBarItem6.ItemChanged += new System.EventHandler(this.navBarItemAll_ItemChanged);
+            // 
+            // navBarItem7
+            // 
+            this.navBarItem7.Caption = "navBarItem7";
+            this.navBarItem7.Name = "navBarItem7";
+            this.navBarItem7.LinkPressed += new DevExpress.XtraNavBar.NavBarLinkEventHandler(this.navBarItemAll_LinkPressed);
+            this.navBarItem7.ItemChanged += new System.EventHandler(this.navBarItemAll_ItemChanged);
+            // 
+            // navBarItem8
+            // 
+            this.navBarItem8.Caption = "navBarItem8";
+            this.navBarItem8.Name = "navBarItem8";
+            this.navBarItem8.LinkPressed += new DevExpress.XtraNavBar.NavBarLinkEventHandler(this.navBarItemAll_LinkPressed);
+            this.navBarItem8.ItemChanged += new System.EventHandler(this.navBarItemAll_ItemChanged);
+            // 
             // navBarGroupProduct
             // 
             this.navBarGroupProduct.Caption = "产品";
@@ -1321,7 +1329,7 @@
             this.navigationFrame.Controls.Add(this.navigationPageProduct);
             this.navigationFrame.Controls.Add(this.navigationPageBill);
             this.navigationFrame.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.navigationFrame.Location = new System.Drawing.Point(151, 147);
+            this.navigationFrame.Location = new System.Drawing.Point(151, 160);
             this.navigationFrame.Name = "navigationFrame";
             this.navigationFrame.Pages.AddRange(new DevExpress.XtraBars.Navigation.NavigationPageBase[] {
             this.userNavigationPage,
@@ -1330,7 +1338,7 @@
             this.navigationPageBill});
             this.navigationFrame.RibbonAndBarsMergeStyle = DevExpress.XtraBars.Docking2010.Views.RibbonAndBarsMergeStyle.Always;
             this.navigationFrame.SelectedPage = this.userNavigationPage;
-            this.navigationFrame.Size = new System.Drawing.Size(674, 419);
+            this.navigationFrame.Size = new System.Drawing.Size(674, 413);
             this.navigationFrame.TabIndex = 0;
             this.navigationFrame.Text = "navigationFrame";
             this.navigationFrame.TransitionType = DevExpress.Utils.Animation.Transitions.Push;
@@ -1340,7 +1348,7 @@
             this.userNavigationPage.Controls.Add(this.layoutControl3);
             this.userNavigationPage.Controls.Add(this.employeesLabelControl);
             this.userNavigationPage.Name = "userNavigationPage";
-            this.userNavigationPage.Size = new System.Drawing.Size(674, 419);
+            this.userNavigationPage.Size = new System.Drawing.Size(674, 413);
             // 
             // layoutControl3
             // 
@@ -1363,7 +1371,7 @@
             this.layoutControl3.Name = "layoutControl3";
             this.layoutControl3.OptionsCustomizationForm.DesignTimeCustomizationFormPositionAndSize = new System.Drawing.Rectangle(1148, 183, 650, 400);
             this.layoutControl3.Root = this.layoutControlGroup2;
-            this.layoutControl3.Size = new System.Drawing.Size(674, 419);
+            this.layoutControl3.Size = new System.Drawing.Size(674, 413);
             this.layoutControl3.TabIndex = 2;
             this.layoutControl3.Text = "layoutControl3";
             // 
@@ -1373,7 +1381,7 @@
             this.dataNavigatorMain.Appearance.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dataNavigatorMain.Appearance.Options.UseFont = true;
             this.dataNavigatorMain.DataSource = this.bindingSourceMain;
-            this.dataNavigatorMain.Location = new System.Drawing.Point(148, 370);
+            this.dataNavigatorMain.Location = new System.Drawing.Point(148, 364);
             this.dataNavigatorMain.Name = "dataNavigatorMain";
             this.dataNavigatorMain.Size = new System.Drawing.Size(378, 25);
             this.dataNavigatorMain.StyleController = this.layoutControl3;
@@ -1384,25 +1392,25 @@
             // gridSplitContainer1
             // 
             this.gridSplitContainer1.Grid = this.gridControlMain;
-            this.gridSplitContainer1.Location = new System.Drawing.Point(24, 74);
+            this.gridSplitContainer1.Location = new System.Drawing.Point(24, 71);
             this.gridSplitContainer1.Name = "gridSplitContainer1";
             this.gridSplitContainer1.Panel1.Controls.Add(this.gridControlMain);
-            this.gridSplitContainer1.Size = new System.Drawing.Size(626, 292);
+            this.gridSplitContainer1.Size = new System.Drawing.Size(626, 289);
             this.gridSplitContainer1.TabIndex = 6;
             // 
             // pictureEdit1
             // 
-            this.pictureEdit1.Location = new System.Drawing.Point(36, 105);
+            this.pictureEdit1.Location = new System.Drawing.Point(36, 104);
             this.pictureEdit1.MenuManager = this.ribbonControl;
             this.pictureEdit1.Name = "pictureEdit1";
             this.pictureEdit1.Properties.ShowCameraMenuItem = DevExpress.XtraEditors.Controls.CameraMenuItemVisibility.Auto;
-            this.pictureEdit1.Size = new System.Drawing.Size(130, 157);
+            this.pictureEdit1.Size = new System.Drawing.Size(130, 152);
             this.pictureEdit1.StyleController = this.layoutControl3;
             this.pictureEdit1.TabIndex = 8;
             // 
             // textEdit1
             // 
-            this.textEdit1.Location = new System.Drawing.Point(285, 105);
+            this.textEdit1.Location = new System.Drawing.Point(285, 104);
             this.textEdit1.MenuManager = this.ribbonControl;
             this.textEdit1.Name = "textEdit1";
             this.textEdit1.Size = new System.Drawing.Size(353, 20);
@@ -1411,7 +1419,7 @@
             // 
             // textEdit2
             // 
-            this.textEdit2.Location = new System.Drawing.Point(285, 201);
+            this.textEdit2.Location = new System.Drawing.Point(285, 200);
             this.textEdit2.MenuManager = this.ribbonControl;
             this.textEdit2.Name = "textEdit2";
             this.textEdit2.Size = new System.Drawing.Size(353, 20);
@@ -1420,7 +1428,7 @@
             // 
             // textEdit3
             // 
-            this.textEdit3.Location = new System.Drawing.Point(521, 129);
+            this.textEdit3.Location = new System.Drawing.Point(521, 128);
             this.textEdit3.MenuManager = this.ribbonControl;
             this.textEdit3.Name = "textEdit3";
             this.textEdit3.Size = new System.Drawing.Size(117, 20);
@@ -1429,7 +1437,7 @@
             // 
             // buttonEdit1
             // 
-            this.buttonEdit1.Location = new System.Drawing.Point(521, 153);
+            this.buttonEdit1.Location = new System.Drawing.Point(521, 152);
             this.buttonEdit1.MenuManager = this.ribbonControl;
             this.buttonEdit1.Name = "buttonEdit1";
             this.buttonEdit1.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
@@ -1440,7 +1448,7 @@
             // 
             // buttonEdit2
             // 
-            this.buttonEdit2.Location = new System.Drawing.Point(285, 177);
+            this.buttonEdit2.Location = new System.Drawing.Point(285, 176);
             this.buttonEdit2.MenuManager = this.ribbonControl;
             this.buttonEdit2.Name = "buttonEdit2";
             this.buttonEdit2.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
@@ -1451,7 +1459,7 @@
             // 
             // buttonEdit3
             // 
-            this.buttonEdit3.Location = new System.Drawing.Point(285, 153);
+            this.buttonEdit3.Location = new System.Drawing.Point(285, 152);
             this.buttonEdit3.MenuManager = this.ribbonControl;
             this.buttonEdit3.Name = "buttonEdit3";
             this.buttonEdit3.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
@@ -1462,7 +1470,7 @@
             // 
             // buttonEdit4
             // 
-            this.buttonEdit4.Location = new System.Drawing.Point(151, 315);
+            this.buttonEdit4.Location = new System.Drawing.Point(151, 309);
             this.buttonEdit4.MenuManager = this.ribbonControl;
             this.buttonEdit4.Name = "buttonEdit4";
             this.buttonEdit4.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
@@ -1473,7 +1481,7 @@
             // 
             // buttonEdit5
             // 
-            this.buttonEdit5.Location = new System.Drawing.Point(151, 339);
+            this.buttonEdit5.Location = new System.Drawing.Point(151, 333);
             this.buttonEdit5.MenuManager = this.ribbonControl;
             this.buttonEdit5.Name = "buttonEdit5";
             this.buttonEdit5.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
@@ -1484,7 +1492,7 @@
             // 
             // memoEdit1
             // 
-            this.memoEdit1.Location = new System.Drawing.Point(151, 315);
+            this.memoEdit1.Location = new System.Drawing.Point(151, 309);
             this.memoEdit1.MenuManager = this.ribbonControl;
             this.memoEdit1.Name = "memoEdit1";
             this.memoEdit1.Size = new System.Drawing.Size(487, 68);
@@ -1493,7 +1501,7 @@
             // 
             // comboBoxEdit1
             // 
-            this.comboBoxEdit1.Location = new System.Drawing.Point(151, 363);
+            this.comboBoxEdit1.Location = new System.Drawing.Point(151, 357);
             this.comboBoxEdit1.MenuManager = this.ribbonControl;
             this.comboBoxEdit1.Name = "comboBoxEdit1";
             this.comboBoxEdit1.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
@@ -1504,7 +1512,7 @@
             // 
             // buttonEdit6
             // 
-            this.buttonEdit6.Location = new System.Drawing.Point(285, 129);
+            this.buttonEdit6.Location = new System.Drawing.Point(285, 128);
             this.buttonEdit6.MenuManager = this.ribbonControl;
             this.buttonEdit6.Name = "buttonEdit6";
             this.buttonEdit6.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
@@ -1527,7 +1535,7 @@
             this.tabbedControlGroup1});
             this.layoutControlGroup2.Name = "Root";
             this.layoutControlGroup2.ShowTabPageCloseButton = true;
-            this.layoutControlGroup2.Size = new System.Drawing.Size(674, 419);
+            this.layoutControlGroup2.Size = new System.Drawing.Size(674, 413);
             this.layoutControlGroup2.Text = "用户";
             // 
             // tabbedControlGroup1
@@ -1541,7 +1549,7 @@
             this.tabbedControlGroup1.Location = new System.Drawing.Point(0, 0);
             this.tabbedControlGroup1.Name = "tabbedControlGroup1";
             this.tabbedControlGroup1.SelectedTabPage = this.layoutControlGroup4;
-            this.tabbedControlGroup1.Size = new System.Drawing.Size(654, 374);
+            this.tabbedControlGroup1.Size = new System.Drawing.Size(654, 372);
             this.tabbedControlGroup1.StartNewLine = true;
             this.tabbedControlGroup1.TabPages.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.layoutControlGroup4,
@@ -1564,7 +1572,7 @@
             this.layoutControlGroup4.Location = new System.Drawing.Point(0, 0);
             this.layoutControlGroup4.Name = "layoutControlGroup4";
             this.layoutControlGroup4.ShowTabPageCloseButton = true;
-            this.layoutControlGroup4.Size = new System.Drawing.Size(630, 325);
+            this.layoutControlGroup4.Size = new System.Drawing.Size(630, 322);
             this.layoutControlGroup4.Text = "用户";
             // 
             // layoutControlItem3
@@ -1572,7 +1580,7 @@
             this.layoutControlItem3.Control = this.gridSplitContainer1;
             this.layoutControlItem3.Location = new System.Drawing.Point(0, 0);
             this.layoutControlItem3.Name = "layoutControlItem3";
-            this.layoutControlItem3.Size = new System.Drawing.Size(630, 296);
+            this.layoutControlItem3.Size = new System.Drawing.Size(630, 293);
             this.layoutControlItem3.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem3.TextVisible = false;
             // 
@@ -1580,7 +1588,7 @@
             // 
             this.layoutControlItem5.Control = this.dataNavigatorMain;
             this.layoutControlItem5.ControlAlignment = System.Drawing.ContentAlignment.MiddleCenter;
-            this.layoutControlItem5.Location = new System.Drawing.Point(0, 296);
+            this.layoutControlItem5.Location = new System.Drawing.Point(0, 293);
             this.layoutControlItem5.Name = "layoutControlItem5";
             this.layoutControlItem5.Size = new System.Drawing.Size(630, 29);
             this.layoutControlItem5.TextSize = new System.Drawing.Size(0, 0);
@@ -1597,7 +1605,7 @@
             this.tabbedControlGroup2});
             this.layoutControlGroup5.Location = new System.Drawing.Point(0, 0);
             this.layoutControlGroup5.Name = "layoutControlGroup5";
-            this.layoutControlGroup5.Size = new System.Drawing.Size(630, 325);
+            this.layoutControlGroup5.Size = new System.Drawing.Size(630, 322);
             this.layoutControlGroup5.Text = "详细";
             // 
             // layoutControlGroup7
@@ -1614,14 +1622,14 @@
             this.emptySpaceItem1});
             this.layoutControlGroup7.Location = new System.Drawing.Point(0, 0);
             this.layoutControlGroup7.Name = "layoutControlGroup7";
-            this.layoutControlGroup7.Size = new System.Drawing.Size(630, 204);
+            this.layoutControlGroup7.Size = new System.Drawing.Size(630, 201);
             // 
             // layoutControlItem1
             // 
             this.layoutControlItem1.Control = this.pictureEdit1;
             this.layoutControlItem1.Location = new System.Drawing.Point(0, 0);
             this.layoutControlItem1.Name = "layoutControlItem1";
-            this.layoutControlItem1.Size = new System.Drawing.Size(134, 161);
+            this.layoutControlItem1.Size = new System.Drawing.Size(134, 156);
             this.layoutControlItem1.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem1.TextVisible = false;
             // 
@@ -1686,22 +1694,22 @@
             this.emptySpaceItem1.AllowHotTrack = false;
             this.emptySpaceItem1.Location = new System.Drawing.Point(134, 120);
             this.emptySpaceItem1.Name = "emptySpaceItem1";
-            this.emptySpaceItem1.Size = new System.Drawing.Size(472, 41);
+            this.emptySpaceItem1.Size = new System.Drawing.Size(472, 36);
             this.emptySpaceItem1.TextSize = new System.Drawing.Size(0, 0);
             // 
             // simpleSeparator1
             // 
             this.simpleSeparator1.AllowHotTrack = false;
-            this.simpleSeparator1.Location = new System.Drawing.Point(0, 204);
+            this.simpleSeparator1.Location = new System.Drawing.Point(0, 201);
             this.simpleSeparator1.Name = "simpleSeparator1";
-            this.simpleSeparator1.Size = new System.Drawing.Size(630, 2);
+            this.simpleSeparator1.Size = new System.Drawing.Size(630, 1);
             // 
             // tabbedControlGroup2
             // 
-            this.tabbedControlGroup2.Location = new System.Drawing.Point(0, 206);
+            this.tabbedControlGroup2.Location = new System.Drawing.Point(0, 202);
             this.tabbedControlGroup2.Name = "tabbedControlGroup2";
             this.tabbedControlGroup2.SelectedTabPage = this.layoutControlGroup3;
-            this.tabbedControlGroup2.Size = new System.Drawing.Size(630, 119);
+            this.tabbedControlGroup2.Size = new System.Drawing.Size(630, 120);
             this.tabbedControlGroup2.TabPages.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.layoutControlGroup3,
             this.layoutControlGroup6});
@@ -1769,7 +1777,7 @@
             this.employeesLabelControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.employeesLabelControl.Location = new System.Drawing.Point(0, 0);
             this.employeesLabelControl.Name = "employeesLabelControl";
-            this.employeesLabelControl.Size = new System.Drawing.Size(674, 419);
+            this.employeesLabelControl.Size = new System.Drawing.Size(674, 413);
             this.employeesLabelControl.TabIndex = 0;
             this.employeesLabelControl.Text = "Employees";
             // 
@@ -1778,7 +1786,7 @@
             this.customersNavigationPage.Controls.Add(this.layoutControl2);
             this.customersNavigationPage.Controls.Add(this.customersLabelControl);
             this.customersNavigationPage.Name = "customersNavigationPage";
-            this.customersNavigationPage.Size = new System.Drawing.Size(674, 419);
+            this.customersNavigationPage.Size = new System.Drawing.Size(674, 413);
             // 
             // layoutControl2
             // 
@@ -1786,7 +1794,7 @@
             this.layoutControl2.Location = new System.Drawing.Point(0, 0);
             this.layoutControl2.Name = "layoutControl2";
             this.layoutControl2.Root = this.layoutControlGroup1;
-            this.layoutControl2.Size = new System.Drawing.Size(674, 419);
+            this.layoutControl2.Size = new System.Drawing.Size(674, 413);
             this.layoutControl2.TabIndex = 2;
             this.layoutControl2.Text = "layoutControl2";
             // 
@@ -1797,14 +1805,14 @@
             this.layoutControlGroup1.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.layoutControlItem2});
             this.layoutControlGroup1.Name = "layoutControlGroup1";
-            this.layoutControlGroup1.Size = new System.Drawing.Size(674, 419);
+            this.layoutControlGroup1.Size = new System.Drawing.Size(674, 413);
             this.layoutControlGroup1.TextVisible = false;
             // 
             // layoutControlItem2
             // 
             this.layoutControlItem2.Location = new System.Drawing.Point(0, 0);
             this.layoutControlItem2.Name = "layoutControlItem2";
-            this.layoutControlItem2.Size = new System.Drawing.Size(654, 399);
+            this.layoutControlItem2.Size = new System.Drawing.Size(654, 393);
             this.layoutControlItem2.TextSize = new System.Drawing.Size(105, 14);
             // 
             // customersLabelControl
@@ -1820,7 +1828,7 @@
             this.customersLabelControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.customersLabelControl.Location = new System.Drawing.Point(0, 0);
             this.customersLabelControl.Name = "customersLabelControl";
-            this.customersLabelControl.Size = new System.Drawing.Size(674, 419);
+            this.customersLabelControl.Size = new System.Drawing.Size(674, 413);
             this.customersLabelControl.TabIndex = 1;
             this.customersLabelControl.Text = "Customers";
             // 
@@ -1828,7 +1836,7 @@
             // 
             this.navigationPageProduct.Controls.Add(this.galleryControlImage);
             this.navigationPageProduct.Name = "navigationPageProduct";
-            this.navigationPageProduct.Size = new System.Drawing.Size(674, 419);
+            this.navigationPageProduct.Size = new System.Drawing.Size(674, 413);
             // 
             // galleryControlImage
             // 
@@ -1909,20 +1917,20 @@
             this.galleryControlImage.Gallery.ShowItemText = true;
             this.galleryControlImage.Location = new System.Drawing.Point(0, 0);
             this.galleryControlImage.Name = "galleryControlImage";
-            this.galleryControlImage.Size = new System.Drawing.Size(674, 419);
+            this.galleryControlImage.Size = new System.Drawing.Size(674, 413);
             this.galleryControlImage.TabIndex = 0;
             this.galleryControlImage.Text = "galleryControl1";
             // 
             // galleryControlClient1
             // 
             this.galleryControlClient1.GalleryControl = this.galleryControlImage;
-            this.galleryControlClient1.Location = new System.Drawing.Point(2, 24);
-            this.galleryControlClient1.Size = new System.Drawing.Size(653, 393);
+            this.galleryControlClient1.Location = new System.Drawing.Point(0, 0);
+            this.galleryControlClient1.Size = new System.Drawing.Size(0, 0);
             // 
             // navigationPageBill
             // 
             this.navigationPageBill.Name = "navigationPageBill";
-            this.navigationPageBill.Size = new System.Drawing.Size(674, 419);
+            this.navigationPageBill.Size = new System.Drawing.Size(674, 413);
             // 
             // layoutControl1
             // 
@@ -1934,13 +1942,13 @@
             this.layoutControl1.Name = "layoutControl1";
             this.layoutControl1.OptionsCustomizationForm.DesignTimeCustomizationFormPositionAndSize = new System.Drawing.Rectangle(1270, 293, 650, 400);
             this.layoutControl1.Root = this.Root;
-            this.layoutControl1.Size = new System.Drawing.Size(256, 419);
+            this.layoutControl1.Size = new System.Drawing.Size(256, 413);
             this.layoutControl1.TabIndex = 7;
             this.layoutControl1.Text = "layoutControl1";
             // 
             // simpleButtonSave
             // 
-            this.simpleButtonSave.Location = new System.Drawing.Point(12, 385);
+            this.simpleButtonSave.Location = new System.Drawing.Point(12, 379);
             this.simpleButtonSave.Name = "simpleButtonSave";
             this.simpleButtonSave.Size = new System.Drawing.Size(232, 22);
             this.simpleButtonSave.StyleController = this.layoutControl1;
@@ -1950,7 +1958,7 @@
             // 
             // textEditName
             // 
-            this.textEditName.Location = new System.Drawing.Point(24, 91);
+            this.textEditName.Location = new System.Drawing.Point(24, 83);
             this.textEditName.MenuManager = this.ribbonControl;
             this.textEditName.Name = "textEditName";
             this.textEditName.Size = new System.Drawing.Size(208, 20);
@@ -1959,7 +1967,7 @@
             // 
             // textEditPhone
             // 
-            this.textEditPhone.Location = new System.Drawing.Point(24, 132);
+            this.textEditPhone.Location = new System.Drawing.Point(24, 124);
             this.textEditPhone.Name = "textEditPhone";
             this.textEditPhone.Size = new System.Drawing.Size(208, 20);
             this.textEditPhone.StyleController = this.layoutControl1;
@@ -1978,7 +1986,7 @@
             this.layoutControlGroupEdit,
             this.layoutControlItemSave});
             this.Root.Name = "Root";
-            this.Root.Size = new System.Drawing.Size(256, 419);
+            this.Root.Size = new System.Drawing.Size(256, 413);
             this.Root.Text = "用户";
             // 
             // layoutControlGroupEdit
@@ -1991,7 +1999,7 @@
             this.layoutControlItemPhone});
             this.layoutControlGroupEdit.Location = new System.Drawing.Point(0, 0);
             this.layoutControlGroupEdit.Name = "layoutControlGroupEdit";
-            this.layoutControlGroupEdit.Size = new System.Drawing.Size(236, 348);
+            this.layoutControlGroupEdit.Size = new System.Drawing.Size(236, 346);
             this.layoutControlGroupEdit.Text = "信息编辑";
             // 
             // layoutControlItemName
@@ -2011,7 +2019,7 @@
             this.layoutControlItemPhone.Location = new System.Drawing.Point(0, 41);
             this.layoutControlItemPhone.MinSize = new System.Drawing.Size(54, 41);
             this.layoutControlItemPhone.Name = "layoutControlItemPhone";
-            this.layoutControlItemPhone.Size = new System.Drawing.Size(212, 258);
+            this.layoutControlItemPhone.Size = new System.Drawing.Size(212, 260);
             this.layoutControlItemPhone.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
             this.layoutControlItemPhone.Text = "手机";
             this.layoutControlItemPhone.TextLocation = DevExpress.Utils.Locations.Top;
@@ -2020,7 +2028,7 @@
             // layoutControlItemSave
             // 
             this.layoutControlItemSave.Control = this.simpleButtonSave;
-            this.layoutControlItemSave.Location = new System.Drawing.Point(0, 348);
+            this.layoutControlItemSave.Location = new System.Drawing.Point(0, 346);
             this.layoutControlItemSave.Name = "layoutControlItemSave";
             this.layoutControlItemSave.Size = new System.Drawing.Size(236, 26);
             this.layoutControlItemSave.Text = "Save";
@@ -2031,9 +2039,9 @@
             // 
             this.sidePanel1.Controls.Add(this.layoutControl1);
             this.sidePanel1.Dock = System.Windows.Forms.DockStyle.Right;
-            this.sidePanel1.Location = new System.Drawing.Point(825, 147);
+            this.sidePanel1.Location = new System.Drawing.Point(825, 160);
             this.sidePanel1.Name = "sidePanel1";
-            this.sidePanel1.Size = new System.Drawing.Size(257, 419);
+            this.sidePanel1.Size = new System.Drawing.Size(257, 413);
             this.sidePanel1.TabIndex = 5;
             this.sidePanel1.Text = "sidePanel1";
             // 
@@ -2097,10 +2105,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutViewUser)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutViewCardUser)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewUser)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemButtonEditName)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tileViewUser)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.advBandedGridViewUser)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tabbedView)).EndInit();
@@ -2229,9 +2235,6 @@
         private DevExpress.XtraNavBar.NavBarGroup navBarGroupBill;
         private DevExpress.XtraGrid.GridControl gridControlMain;
         private DevExpress.XtraGrid.Views.Grid.GridView gridViewUser;
-        private DevExpress.XtraEditors.Repository.RepositoryItemTextEdit repositoryItemTextEdit1;
-        private DevExpress.XtraEditors.Repository.RepositoryItemTextEdit repositoryItemTextEdit2;
-        private DevExpress.XtraEditors.Repository.RepositoryItemTextEdit repositoryItemTextEdit3;
         private DevExpress.XtraGrid.Views.Layout.LayoutView layoutViewUser;
         private DevExpress.XtraGrid.Views.Layout.LayoutViewCard layoutViewCardUser;
         private DevExpress.XtraGrid.Views.Tile.TileView tileViewUser;
@@ -2352,5 +2355,6 @@
         private DevExpress.XtraBars.PopupMenu popupMenu4;
         private DevExpress.XtraBars.PopupMenu popupMenu5;
         private DevExpress.XtraBars.Ribbon.GalleryDropDown galleryDropDown1;
+        private DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit repositoryItemButtonEditName;
     }
 }

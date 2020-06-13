@@ -12,14 +12,14 @@ using XCode.Membership;
 
 namespace DXApplicationXCode
 {
-    public partial class XtraFormUser : DevExpress.XtraEditors.XtraForm
+    public partial class BaseXtraForm : DevExpress.XtraEditors.XtraForm
     {
         User<UserX> currentUser = null;
-        public XtraFormUser()
+        public BaseXtraForm()
         {
             InitializeComponent();
         }
-        public XtraFormUser(User<UserX> currentUser)
+        public BaseXtraForm(User<UserX> currentUser)
             :this()
         {
             

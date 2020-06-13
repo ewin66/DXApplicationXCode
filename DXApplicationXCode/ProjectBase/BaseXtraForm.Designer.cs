@@ -1,6 +1,6 @@
 ﻿namespace DXApplicationXCode
 {
-    partial class XtraFormUser
+    partial class BaseXtraForm
     {
         /// <summary>
         /// Required designer variable.

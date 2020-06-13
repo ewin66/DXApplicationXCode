@@ -225,7 +225,7 @@ namespace DXApplicationXCode
                 UserX currentUser = this.gridViewUser.GetRow(selectRow) as UserX;
 
 
-                XtraFormUser newXtraFormUser = new XtraFormUser();
+                BaseXtraForm newXtraFormUser = new BaseXtraForm();
                 newXtraFormUser.ShowDialog();
                 newXtraFormUser.Dispose();
             }
@@ -327,6 +327,28 @@ namespace DXApplicationXCode
         {
             System.Diagnostics.Trace.WriteLine("navBarItemAll_LinkPressed");
             System.Diagnostics.Debug.WriteLine("navBarItemAll_LinkPressed"); AsyncDemoClass newAsyncDemoClass = new AsyncDemoClass();
+        }
+
+        private void repositoryItemButtonEditName_ButtonClick(object sender, DevExpress.XtraEditors.Controls.ButtonPressedEventArgs e)
+        {
+            String methodname = new StackTrace(true).GetFrame(0).GetMethod().Name.ToString();
+            Debug.WriteLine(methodname);
+            MessageBox.Show(methodname);
+        }
+
+        private void repositoryItemButtonEditName_ButtonPressed(object sender, DevExpress.XtraEditors.Controls.ButtonPressedEventArgs e)
+        {
+            String methodname = new StackTrace(true).GetFrame(0).GetMethod().Name.ToString();
+            Debug.WriteLine(methodname);
+            MessageBox.Show(methodname);
+        }
+
+        private void repositoryItemButtonEditName_Click(object sender, EventArgs e)
+        {
+            String methodname = new StackTrace(true).GetFrame(0).GetMethod().Name.ToString();
+            Debug.WriteLine(methodname);
+            MessageBox.Show(methodname);
+
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-   <LangVersion>preview</LangVersion>
+    <LangVersion>preview</LangVersion>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
@@ -135,6 +135,14 @@
     <Compile Include="GACManagerApiProjectFolder\GacUtil.cs" />
     <Compile Include="GACManagerApiProjectFolder\InstallReferenceEnumerator.cs" />
     <Compile Include="GACManagerApiProjectFolder\InstallReferenceGuid.cs" />
+    <Compile Include="ProjectBase\BaseColpEnumClass.cs" />
+    <Compile Include="ProjectBase\FormLogon.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ProjectBase\FormLogon.designer.cs">
+      <DependentUpon>FormLogon.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ProjectBase\VerificationCode.cs" />
     <Compile Include="RibbonFormMain.AsyncDelegate.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -146,18 +154,21 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UserControl1.cs">
+    <Compile Include="Control\UCDocumentManager.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControl1.Designer.cs">
-      <DependentUpon>UserControl1.cs</DependentUpon>
+    <Compile Include="Control\UCDocumentManager.Designer.cs">
+      <DependentUpon>UCDocumentManager.cs</DependentUpon>
     </Compile>
-    <Compile Include="XtraFormUser.cs">
+    <Compile Include="ProjectBase\BaseXtraForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="XtraFormUser.Designer.cs">
-      <DependentUpon>XtraFormUser.cs</DependentUpon>
+    <Compile Include="ProjectBase\BaseXtraForm.Designer.cs">
+      <DependentUpon>BaseXtraForm.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="ProjectBase\FormLogon.resx">
+      <DependentUpon>FormLogon.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="RibbonFormMain.resx">
       <DependentUpon>RibbonFormMain.cs</DependentUpon>
@@ -172,11 +183,11 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="UserControl1.resx">
-      <DependentUpon>UserControl1.cs</DependentUpon>
+    <EmbeddedResource Include="Control\UCDocumentManager.resx">
+      <DependentUpon>UCDocumentManager.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="XtraFormUser.resx">
-      <DependentUpon>XtraFormUser.cs</DependentUpon>
+    <EmbeddedResource Include="ProjectBase\BaseXtraForm.resx">
+      <DependentUpon>BaseXtraForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="App.config" />
     <None Include="Entity\Build.log">
@@ -207,6 +218,7 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="FormMain\" />
     <Folder Include="Module\" />
     <Folder Include="Project\" />
     <Folder Include="Properties\DataSources\" />
